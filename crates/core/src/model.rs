@@ -73,6 +73,7 @@ pub struct NetworkConfig {
     pub retries: u32,
     pub concurrency: usize,
     pub limit_kib: u64,
+    pub max_redirects: usize,
 }
 impl Default for NetworkConfig {
     fn default() -> Self {
@@ -87,6 +88,7 @@ impl Default for NetworkConfig {
             retries: 3,
             concurrency: 8,
             limit_kib: 0,
+            max_redirects: 5,
         }
     }
 }
@@ -110,7 +112,10 @@ pub struct TaskInput {
     pub manual_keys: BTreeMap<String, String>,
     pub manual_ivs: BTreeMap<String, String>,
     pub force_key: Option<String>,
+    pub force_track: usize,
+    pub force_range: Option<[u64; 2]>,
     pub allow_gaps: bool,
+    pub confirm_gaps: bool,
     pub keep_cache: bool,
     pub remember: bool,
     pub local_root: Option<String>,
@@ -118,6 +123,7 @@ pub struct TaskInput {
     pub ffmpeg: String,
     pub ffprobe: String,
     pub fast_ts: bool,
+    pub overwrite: bool,
 }
 impl Default for TaskInput {
     fn default() -> Self {
@@ -138,7 +144,10 @@ impl Default for TaskInput {
             manual_keys: BTreeMap::new(),
             manual_ivs: BTreeMap::new(),
             force_key: None,
+            force_track: 0,
+            force_range: None,
             allow_gaps: false,
+            confirm_gaps: false,
             keep_cache: false,
             remember: false,
             local_root: None,
@@ -146,6 +155,7 @@ impl Default for TaskInput {
             ffmpeg: "ffmpeg".into(),
             ffprobe: "ffprobe".into(),
             fast_ts: false,
+            overwrite: false,
         }
     }
 }
@@ -184,6 +194,8 @@ pub struct TaskView {
     pub event_seq: u64,
     pub missing: Vec<String>,
     pub needs_credentials: bool,
+    #[serde(default)]
+    pub processing_ready: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -200,6 +212,9 @@ pub struct Settings {
     pub low_disk_mib: u64,
     pub keep_cache: bool,
     pub notify: bool,
+    pub history_days: u64,
+    pub log_level: String,
+    pub schema_version: u32,
     pub ffmpeg: String,
     pub ffprobe: String,
 }
@@ -217,6 +232,9 @@ impl Default for Settings {
             low_disk_mib: 1024,
             keep_cache: false,
             notify: true,
+            history_days: 0,
+            log_level: "INFO".into(),
+            schema_version: 1,
             ffmpeg: "ffmpeg".into(),
             ffprobe: "ffprobe".into(),
         }

@@ -1,0 +1,4603 @@
+[
+  {
+    "ecosystem": "rust",
+    "name": "adler2",
+    "version": "2.0.1",
+    "declared_license": "0BSD OR MIT OR Apache-2.0",
+    "repository": "https://github.com/oyvindln/adler2",
+    "notices": [
+      "licenses/dependencies/rust-adler2-2.0.1/LICENSE-0BSD",
+      "licenses/dependencies/rust-adler2-2.0.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-adler2-2.0.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "aead",
+    "version": "0.5.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/traits",
+    "notices": [
+      "licenses/dependencies/rust-aead-0.5.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-aead-0.5.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "aes",
+    "version": "0.8.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/block-ciphers",
+    "notices": [
+      "licenses/dependencies/rust-aes-0.8.4/LICENSE-APACHE",
+      "licenses/dependencies/rust-aes-0.8.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "aes-gcm",
+    "version": "0.10.3",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/RustCrypto/AEADs",
+    "notices": [
+      "licenses/dependencies/rust-aes-gcm-0.10.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-aes-gcm-0.10.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ahash",
+    "version": "0.8.12",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/tkaitchuck/ahash",
+    "notices": [
+      "licenses/dependencies/rust-ahash-0.8.12/LICENSE-APACHE",
+      "licenses/dependencies/rust-ahash-0.8.12/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "aho-corasick",
+    "version": "1.1.5",
+    "declared_license": "Unlicense OR MIT",
+    "repository": "https://github.com/BurntSushi/aho-corasick",
+    "notices": [
+      "licenses/dependencies/rust-aho-corasick-1.1.5/LICENSE-MIT",
+      "licenses/dependencies/rust-aho-corasick-1.1.5/COPYING",
+      "licenses/dependencies/rust-aho-corasick-1.1.5/UNLICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "alloc-no-stdlib",
+    "version": "3.0.0",
+    "declared_license": "BSD-3-Clause",
+    "repository": "https://github.com/dropbox/rust-alloc-no-stdlib",
+    "notices": [
+      "licenses/dependencies/rust-alloc-no-stdlib-3.0.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "alloc-stdlib",
+    "version": "0.3.0",
+    "declared_license": "BSD-3-Clause",
+    "repository": "https://github.com/dropbox/rust-alloc-no-stdlib",
+    "notices": []
+  },
+  {
+    "ecosystem": "rust",
+    "name": "anstream",
+    "version": "1.0.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-cli/anstyle.git",
+    "notices": [
+      "licenses/dependencies/rust-anstream-1.0.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-anstream-1.0.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "anstyle",
+    "version": "1.0.14",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-cli/anstyle.git",
+    "notices": [
+      "licenses/dependencies/rust-anstyle-1.0.14/LICENSE-APACHE",
+      "licenses/dependencies/rust-anstyle-1.0.14/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "anstyle-parse",
+    "version": "1.0.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-cli/anstyle.git",
+    "notices": [
+      "licenses/dependencies/rust-anstyle-parse-1.0.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-anstyle-parse-1.0.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "anstyle-query",
+    "version": "1.1.5",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-cli/anstyle.git",
+    "notices": [
+      "licenses/dependencies/rust-anstyle-query-1.1.5/LICENSE-APACHE",
+      "licenses/dependencies/rust-anstyle-query-1.1.5/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "anstyle-wincon",
+    "version": "3.0.11",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-cli/anstyle.git",
+    "notices": [
+      "licenses/dependencies/rust-anstyle-wincon-3.0.11/LICENSE-APACHE",
+      "licenses/dependencies/rust-anstyle-wincon-3.0.11/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "anyhow",
+    "version": "1.0.104",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/anyhow",
+    "notices": [
+      "licenses/dependencies/rust-anyhow-1.0.104/LICENSE-APACHE",
+      "licenses/dependencies/rust-anyhow-1.0.104/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "atomic-waker",
+    "version": "1.1.2",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/smol-rs/atomic-waker",
+    "notices": [
+      "licenses/dependencies/rust-atomic-waker-1.1.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-atomic-waker-1.1.2/LICENSE-MIT",
+      "licenses/dependencies/rust-atomic-waker-1.1.2/LICENSE-THIRD-PARTY"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "autocfg",
+    "version": "1.5.1",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/cuviper/autocfg",
+    "notices": [
+      "licenses/dependencies/rust-autocfg-1.5.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-autocfg-1.5.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "base64",
+    "version": "0.22.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/marshallpierce/rust-base64",
+    "notices": [
+      "licenses/dependencies/rust-base64-0.22.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-base64-0.22.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "base64",
+    "version": "0.23.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/marshallpierce/rust-base64",
+    "notices": [
+      "licenses/dependencies/rust-base64-0.23.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-base64-0.23.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "bit-set",
+    "version": "0.8.0",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/contain-rs/bit-set",
+    "notices": [
+      "licenses/dependencies/rust-bit-set-0.8.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-bit-set-0.8.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "bit-vec",
+    "version": "0.8.0",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/contain-rs/bit-vec",
+    "notices": [
+      "licenses/dependencies/rust-bit-vec-0.8.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-bit-vec-0.8.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "bitflags",
+    "version": "1.3.2",
+    "declared_license": "MIT/Apache-2.0",
+    "repository": "https://github.com/bitflags/bitflags",
+    "notices": [
+      "licenses/dependencies/rust-bitflags-1.3.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-bitflags-1.3.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "bitflags",
+    "version": "2.13.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/bitflags/bitflags",
+    "notices": [
+      "licenses/dependencies/rust-bitflags-2.13.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-bitflags-2.13.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "block-buffer",
+    "version": "0.10.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/utils",
+    "notices": [
+      "licenses/dependencies/rust-block-buffer-0.10.4/LICENSE-APACHE",
+      "licenses/dependencies/rust-block-buffer-0.10.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "block-padding",
+    "version": "0.3.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/utils",
+    "notices": [
+      "licenses/dependencies/rust-block-padding-0.3.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-block-padding-0.3.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "brotli",
+    "version": "9.1.1",
+    "declared_license": "BSD-3-Clause AND MIT",
+    "repository": "https://github.com/dropbox/rust-brotli",
+    "notices": [
+      "licenses/dependencies/rust-brotli-9.1.1/LICENSE.BSD-3-Clause",
+      "licenses/dependencies/rust-brotli-9.1.1/LICENSE.MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "brotli-decompressor",
+    "version": "6.2.0",
+    "declared_license": "BSD-3-Clause/MIT",
+    "repository": "https://github.com/dropbox/rust-brotli-decompressor",
+    "notices": [
+      "licenses/dependencies/rust-brotli-decompressor-6.2.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "bs58",
+    "version": "0.5.1",
+    "declared_license": "MIT/Apache-2.0",
+    "repository": "https://github.com/Nullus157/bs58-rs",
+    "notices": [
+      "licenses/dependencies/rust-bs58-0.5.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-bs58-0.5.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "byteorder",
+    "version": "1.5.0",
+    "declared_license": "Unlicense OR MIT",
+    "repository": "https://github.com/BurntSushi/byteorder",
+    "notices": [
+      "licenses/dependencies/rust-byteorder-1.5.0/LICENSE-MIT",
+      "licenses/dependencies/rust-byteorder-1.5.0/COPYING",
+      "licenses/dependencies/rust-byteorder-1.5.0/UNLICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "bytes",
+    "version": "1.12.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tokio-rs/bytes",
+    "notices": [
+      "licenses/dependencies/rust-bytes-1.12.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "camino",
+    "version": "1.2.6",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/camino-rs/camino",
+    "notices": [
+      "licenses/dependencies/rust-camino-1.2.6/LICENSE-APACHE",
+      "licenses/dependencies/rust-camino-1.2.6/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cargo-platform",
+    "version": "0.1.9",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/cargo",
+    "notices": [
+      "licenses/dependencies/rust-cargo-platform-0.1.9/LICENSE-APACHE",
+      "licenses/dependencies/rust-cargo-platform-0.1.9/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cargo_metadata",
+    "version": "0.19.2",
+    "declared_license": "MIT",
+    "repository": "https://github.com/oli-obk/cargo_metadata",
+    "notices": [
+      "licenses/dependencies/rust-cargo_metadata-0.19.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cargo_toml",
+    "version": "1.0.1",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://gitlab.com/lib.rs/cargo_toml",
+    "notices": [
+      "licenses/dependencies/rust-cargo_toml-1.0.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cbc",
+    "version": "0.1.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/block-modes",
+    "notices": [
+      "licenses/dependencies/rust-cbc-0.1.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-cbc-0.1.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cc",
+    "version": "1.11.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/cc-rs",
+    "notices": [
+      "licenses/dependencies/rust-cc-1.11.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-cc-1.11.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cfb",
+    "version": "0.14.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/mdsteele/rust-cfb",
+    "notices": [
+      "licenses/dependencies/rust-cfb-0.14.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cfg-if",
+    "version": "1.0.5",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/cfg-if",
+    "notices": [
+      "licenses/dependencies/rust-cfg-if-1.0.5/LICENSE-APACHE",
+      "licenses/dependencies/rust-cfg-if-1.0.5/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cfg_aliases",
+    "version": "0.2.2",
+    "declared_license": "MIT",
+    "repository": "https://github.com/katharostech/cfg_aliases",
+    "notices": [
+      "licenses/dependencies/rust-cfg_aliases-0.2.2/LICENSE",
+      "licenses/dependencies/rust-cfg_aliases-0.2.2/NOTICES.md"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "chacha20",
+    "version": "0.10.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/stream-ciphers",
+    "notices": [
+      "licenses/dependencies/rust-chacha20-0.10.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-chacha20-0.10.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "chrono",
+    "version": "0.4.45",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/chronotope/chrono",
+    "notices": [
+      "licenses/dependencies/rust-chrono-0.4.45/LICENSE.txt"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cipher",
+    "version": "0.4.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/traits",
+    "notices": [
+      "licenses/dependencies/rust-cipher-0.4.4/LICENSE-APACHE",
+      "licenses/dependencies/rust-cipher-0.4.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "clap",
+    "version": "4.6.7",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/clap-rs/clap",
+    "notices": [
+      "licenses/dependencies/rust-clap-4.6.7/LICENSE-APACHE",
+      "licenses/dependencies/rust-clap-4.6.7/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "clap_builder",
+    "version": "4.6.7",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/clap-rs/clap",
+    "notices": [
+      "licenses/dependencies/rust-clap_builder-4.6.7/LICENSE-APACHE",
+      "licenses/dependencies/rust-clap_builder-4.6.7/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "clap_derive",
+    "version": "4.6.7",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/clap-rs/clap",
+    "notices": [
+      "licenses/dependencies/rust-clap_derive-4.6.7/LICENSE-APACHE",
+      "licenses/dependencies/rust-clap_derive-4.6.7/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "clap_lex",
+    "version": "1.1.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/clap-rs/clap",
+    "notices": [
+      "licenses/dependencies/rust-clap_lex-1.1.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-clap_lex-1.1.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "colorchoice",
+    "version": "1.0.5",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-cli/anstyle.git",
+    "notices": [
+      "licenses/dependencies/rust-colorchoice-1.0.5/LICENSE-APACHE",
+      "licenses/dependencies/rust-colorchoice-1.0.5/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cookie",
+    "version": "0.18.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/SergioBenitez/cookie-rs",
+    "notices": [
+      "licenses/dependencies/rust-cookie-0.18.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-cookie-0.18.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cpufeatures",
+    "version": "0.2.17",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/utils",
+    "notices": [
+      "licenses/dependencies/rust-cpufeatures-0.2.17/LICENSE-APACHE",
+      "licenses/dependencies/rust-cpufeatures-0.2.17/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cpufeatures",
+    "version": "0.3.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/utils",
+    "notices": [
+      "licenses/dependencies/rust-cpufeatures-0.3.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-cpufeatures-0.3.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "crc32fast",
+    "version": "1.5.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/srijs/rust-crc32fast",
+    "notices": [
+      "licenses/dependencies/rust-crc32fast-1.5.4/LICENSE-APACHE",
+      "licenses/dependencies/rust-crc32fast-1.5.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "crossbeam-channel",
+    "version": "0.5.17",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/crossbeam-rs/crossbeam",
+    "notices": [
+      "licenses/dependencies/rust-crossbeam-channel-0.5.17/LICENSE-APACHE",
+      "licenses/dependencies/rust-crossbeam-channel-0.5.17/LICENSE-MIT",
+      "licenses/dependencies/rust-crossbeam-channel-0.5.17/LICENSE-THIRD-PARTY"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "crossbeam-utils",
+    "version": "0.8.23",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/crossbeam-rs/crossbeam",
+    "notices": [
+      "licenses/dependencies/rust-crossbeam-utils-0.8.23/LICENSE-APACHE",
+      "licenses/dependencies/rust-crossbeam-utils-0.8.23/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "crypto-common",
+    "version": "0.1.7",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/traits",
+    "notices": [
+      "licenses/dependencies/rust-crypto-common-0.1.7/LICENSE-APACHE",
+      "licenses/dependencies/rust-crypto-common-0.1.7/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cssparser",
+    "version": "0.37.0",
+    "declared_license": "MPL-2.0",
+    "repository": "https://github.com/servo/rust-cssparser",
+    "notices": [
+      "licenses/dependencies/rust-cssparser-0.37.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "cssparser-macros",
+    "version": "0.7.1",
+    "declared_license": "MPL-2.0",
+    "repository": "https://github.com/servo/rust-cssparser",
+    "notices": [
+      "licenses/dependencies/rust-cssparser-macros-0.7.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ctor",
+    "version": "1.0.13",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/mmastrac/linktime",
+    "notices": [
+      "licenses/dependencies/rust-ctor-1.0.13/LICENSE-APACHE",
+      "licenses/dependencies/rust-ctor-1.0.13/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ctr",
+    "version": "0.9.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/block-modes",
+    "notices": [
+      "licenses/dependencies/rust-ctr-0.9.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-ctr-0.9.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "darling",
+    "version": "0.24.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/TedDriggs/darling",
+    "notices": [
+      "licenses/dependencies/rust-darling-0.24.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "darling_core",
+    "version": "0.24.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/TedDriggs/darling",
+    "notices": [
+      "licenses/dependencies/rust-darling_core-0.24.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "darling_macro",
+    "version": "0.24.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/TedDriggs/darling",
+    "notices": [
+      "licenses/dependencies/rust-darling_macro-0.24.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "defmt",
+    "version": "1.2.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/knurling-rs/defmt",
+    "notices": [
+      "licenses/dependencies/rust-defmt-1.2.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-defmt-1.2.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "defmt-macros",
+    "version": "1.2.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/knurling-rs/defmt",
+    "notices": [
+      "licenses/dependencies/rust-defmt-macros-1.2.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-defmt-macros-1.2.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "defmt-parser",
+    "version": "1.1.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/knurling-rs/defmt",
+    "notices": [
+      "licenses/dependencies/rust-defmt-parser-1.1.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-defmt-parser-1.1.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "deranged",
+    "version": "0.5.9",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/jhpratt/deranged",
+    "notices": [
+      "licenses/dependencies/rust-deranged-0.5.9/LICENSE-Apache",
+      "licenses/dependencies/rust-deranged-0.5.9/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "derive_more",
+    "version": "2.1.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/JelteF/derive_more",
+    "notices": [
+      "licenses/dependencies/rust-derive_more-2.1.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "derive_more-impl",
+    "version": "2.1.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/JelteF/derive_more",
+    "notices": [
+      "licenses/dependencies/rust-derive_more-impl-2.1.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "digest",
+    "version": "0.10.7",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/traits",
+    "notices": [
+      "licenses/dependencies/rust-digest-0.10.7/LICENSE-APACHE",
+      "licenses/dependencies/rust-digest-0.10.7/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "dirs",
+    "version": "7.0.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://codeberg.org/dirs/dirs-rs",
+    "notices": [
+      "licenses/dependencies/rust-dirs-7.0.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-dirs-7.0.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "dirs-sys",
+    "version": "0.5.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dirs-dev/dirs-sys-rs",
+    "notices": [
+      "licenses/dependencies/rust-dirs-sys-0.5.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-dirs-sys-0.5.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "displaydoc",
+    "version": "0.2.7",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/yaahc/displaydoc",
+    "notices": [
+      "licenses/dependencies/rust-displaydoc-0.2.7/LICENSE-APACHE",
+      "licenses/dependencies/rust-displaydoc-0.2.7/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "dom_query",
+    "version": "0.28.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/niklak/dom_query",
+    "notices": [
+      "licenses/dependencies/rust-dom_query-0.28.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "dpi",
+    "version": "0.1.2",
+    "declared_license": "Apache-2.0 AND MIT",
+    "repository": "https://github.com/rust-windowing/winit",
+    "notices": [
+      "licenses/dependencies/rust-dpi-0.1.2/LICENSE",
+      "licenses/dependencies/rust-dpi-0.1.2/LICENSE-LIBM-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "dtoa",
+    "version": "1.0.11",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/dtoa",
+    "notices": [
+      "licenses/dependencies/rust-dtoa-1.0.11/LICENSE-APACHE",
+      "licenses/dependencies/rust-dtoa-1.0.11/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "dtoa-short",
+    "version": "0.3.5",
+    "declared_license": "MPL-2.0",
+    "repository": "https://github.com/upsuper/dtoa-short",
+    "notices": [
+      "licenses/dependencies/rust-dtoa-short-0.3.5/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "dunce",
+    "version": "1.0.5",
+    "declared_license": "CC0-1.0 OR MIT-0 OR Apache-2.0",
+    "repository": "https://gitlab.com/kornelski/dunce",
+    "notices": [
+      "licenses/dependencies/rust-dunce-1.0.5/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "dyn-clone",
+    "version": "1.0.20",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/dyn-clone",
+    "notices": [
+      "licenses/dependencies/rust-dyn-clone-1.0.20/LICENSE-APACHE",
+      "licenses/dependencies/rust-dyn-clone-1.0.20/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "embed-resource",
+    "version": "3.0.12",
+    "declared_license": "MIT",
+    "repository": "https://github.com/nabijaczleweli/rust-embed-resource",
+    "notices": [
+      "licenses/dependencies/rust-embed-resource-3.0.12/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "equivalent",
+    "version": "1.0.3",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/indexmap-rs/equivalent",
+    "notices": [
+      "licenses/dependencies/rust-equivalent-1.0.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-equivalent-1.0.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "erased-serde",
+    "version": "0.4.11",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/erased-serde",
+    "notices": [
+      "licenses/dependencies/rust-erased-serde-0.4.11/LICENSE-APACHE",
+      "licenses/dependencies/rust-erased-serde-0.4.11/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "fallible-iterator",
+    "version": "0.3.0",
+    "declared_license": "MIT/Apache-2.0",
+    "repository": "https://github.com/sfackler/rust-fallible-iterator",
+    "notices": [
+      "licenses/dependencies/rust-fallible-iterator-0.3.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-fallible-iterator-0.3.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "fallible-streaming-iterator",
+    "version": "0.1.9",
+    "declared_license": "MIT/Apache-2.0",
+    "repository": "https://github.com/sfackler/fallible-streaming-iterator",
+    "notices": [
+      "licenses/dependencies/rust-fallible-streaming-iterator-0.1.9/LICENSE-APACHE",
+      "licenses/dependencies/rust-fallible-streaming-iterator-0.1.9/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "fastrand",
+    "version": "2.5.0",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/smol-rs/fastrand",
+    "notices": [
+      "licenses/dependencies/rust-fastrand-2.5.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-fastrand-2.5.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "fdeflate",
+    "version": "0.3.7",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/image-rs/fdeflate",
+    "notices": [
+      "licenses/dependencies/rust-fdeflate-0.3.7/LICENSE-APACHE",
+      "licenses/dependencies/rust-fdeflate-0.3.7/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "find-msvc-tools",
+    "version": "0.1.15",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/cc-rs",
+    "notices": [
+      "licenses/dependencies/rust-find-msvc-tools-0.1.15/LICENSE-APACHE",
+      "licenses/dependencies/rust-find-msvc-tools-0.1.15/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "flate2",
+    "version": "1.1.10",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/flate2-rs",
+    "notices": [
+      "licenses/dependencies/rust-flate2-1.1.10/LICENSE-APACHE",
+      "licenses/dependencies/rust-flate2-1.1.10/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "fnv",
+    "version": "1.0.7",
+    "declared_license": "Apache-2.0 / MIT",
+    "repository": "https://github.com/servo/rust-fnv",
+    "notices": [
+      "licenses/dependencies/rust-fnv-1.0.7/LICENSE-APACHE",
+      "licenses/dependencies/rust-fnv-1.0.7/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "foldhash",
+    "version": "0.2.0",
+    "declared_license": "Zlib",
+    "repository": "https://github.com/orlp/foldhash",
+    "notices": [
+      "licenses/dependencies/rust-foldhash-0.2.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "form_urlencoded",
+    "version": "1.2.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/rust-url",
+    "notices": [
+      "licenses/dependencies/rust-form_urlencoded-1.2.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-form_urlencoded-1.2.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "fs2",
+    "version": "0.4.3",
+    "declared_license": "MIT/Apache-2.0",
+    "repository": "https://github.com/danburkert/fs2-rs",
+    "notices": [
+      "licenses/dependencies/rust-fs2-0.4.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-fs2-0.4.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "futures-channel",
+    "version": "0.3.34",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/futures-rs",
+    "notices": [
+      "licenses/dependencies/rust-futures-channel-0.3.34/LICENSE-APACHE",
+      "licenses/dependencies/rust-futures-channel-0.3.34/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "futures-core",
+    "version": "0.3.34",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/futures-rs",
+    "notices": [
+      "licenses/dependencies/rust-futures-core-0.3.34/LICENSE-APACHE",
+      "licenses/dependencies/rust-futures-core-0.3.34/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "futures-io",
+    "version": "0.3.34",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/futures-rs",
+    "notices": [
+      "licenses/dependencies/rust-futures-io-0.3.34/LICENSE-APACHE",
+      "licenses/dependencies/rust-futures-io-0.3.34/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "futures-macro",
+    "version": "0.3.34",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/futures-rs",
+    "notices": [
+      "licenses/dependencies/rust-futures-macro-0.3.34/LICENSE-APACHE",
+      "licenses/dependencies/rust-futures-macro-0.3.34/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "futures-sink",
+    "version": "0.3.34",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/futures-rs",
+    "notices": [
+      "licenses/dependencies/rust-futures-sink-0.3.34/LICENSE-APACHE",
+      "licenses/dependencies/rust-futures-sink-0.3.34/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "futures-task",
+    "version": "0.3.34",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/futures-rs",
+    "notices": [
+      "licenses/dependencies/rust-futures-task-0.3.34/LICENSE-APACHE",
+      "licenses/dependencies/rust-futures-task-0.3.34/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "futures-util",
+    "version": "0.3.34",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/futures-rs",
+    "notices": [
+      "licenses/dependencies/rust-futures-util-0.3.34/LICENSE-APACHE",
+      "licenses/dependencies/rust-futures-util-0.3.34/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "generic-array",
+    "version": "0.14.7",
+    "declared_license": "MIT",
+    "repository": "https://github.com/fizyk20/generic-array.git",
+    "notices": [
+      "licenses/dependencies/rust-generic-array-0.14.7/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "getrandom",
+    "version": "0.2.17",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-random/getrandom",
+    "notices": [
+      "licenses/dependencies/rust-getrandom-0.2.17/LICENSE-APACHE",
+      "licenses/dependencies/rust-getrandom-0.2.17/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "getrandom",
+    "version": "0.3.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-random/getrandom",
+    "notices": [
+      "licenses/dependencies/rust-getrandom-0.3.4/LICENSE-APACHE",
+      "licenses/dependencies/rust-getrandom-0.3.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "getrandom",
+    "version": "0.4.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-random/getrandom",
+    "notices": [
+      "licenses/dependencies/rust-getrandom-0.4.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-getrandom-0.4.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ghash",
+    "version": "0.5.1",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/RustCrypto/universal-hashes",
+    "notices": [
+      "licenses/dependencies/rust-ghash-0.5.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-ghash-0.5.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "glob",
+    "version": "0.3.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/glob",
+    "notices": [
+      "licenses/dependencies/rust-glob-0.3.4/LICENSE-APACHE",
+      "licenses/dependencies/rust-glob-0.3.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "hashbrown",
+    "version": "0.12.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/hashbrown",
+    "notices": [
+      "licenses/dependencies/rust-hashbrown-0.12.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-hashbrown-0.12.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "hashbrown",
+    "version": "0.14.5",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/hashbrown",
+    "notices": [
+      "licenses/dependencies/rust-hashbrown-0.14.5/LICENSE-APACHE",
+      "licenses/dependencies/rust-hashbrown-0.14.5/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "hashbrown",
+    "version": "0.17.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/hashbrown",
+    "notices": [
+      "licenses/dependencies/rust-hashbrown-0.17.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-hashbrown-0.17.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "hashlink",
+    "version": "0.9.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/kyren/hashlink",
+    "notices": [
+      "licenses/dependencies/rust-hashlink-0.9.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-hashlink-0.9.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "heck",
+    "version": "0.5.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/withoutboats/heck",
+    "notices": [
+      "licenses/dependencies/rust-heck-0.5.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-heck-0.5.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "hex",
+    "version": "0.4.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/KokaKiwi/rust-hex",
+    "notices": [
+      "licenses/dependencies/rust-hex-0.4.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-hex-0.4.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "html5ever",
+    "version": "0.39.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/html5ever",
+    "notices": [
+      "licenses/dependencies/rust-html5ever-0.39.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-html5ever-0.39.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "http",
+    "version": "1.5.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/hyperium/http",
+    "notices": [
+      "licenses/dependencies/rust-http-1.5.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-http-1.5.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "http-body",
+    "version": "1.1.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/hyperium/http-body",
+    "notices": [
+      "licenses/dependencies/rust-http-body-1.1.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "http-body-util",
+    "version": "0.1.5",
+    "declared_license": "MIT",
+    "repository": "https://github.com/hyperium/http-body",
+    "notices": [
+      "licenses/dependencies/rust-http-body-util-0.1.5/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "http-range",
+    "version": "0.1.6",
+    "declared_license": "MIT",
+    "repository": "https://github.com/bancek/rust-http-range.git",
+    "notices": [
+      "licenses/dependencies/rust-http-range-0.1.6/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "httparse",
+    "version": "1.10.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/seanmonstar/httparse",
+    "notices": [
+      "licenses/dependencies/rust-httparse-1.10.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-httparse-1.10.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "httpdate",
+    "version": "1.0.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/pyfisch/httpdate",
+    "notices": [
+      "licenses/dependencies/rust-httpdate-1.0.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-httpdate-1.0.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "hyper",
+    "version": "1.12.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/hyperium/hyper",
+    "notices": [
+      "licenses/dependencies/rust-hyper-1.12.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "hyper-rustls",
+    "version": "0.27.10",
+    "declared_license": "Apache-2.0 OR ISC OR MIT",
+    "repository": "https://github.com/rustls/hyper-rustls",
+    "notices": [
+      "licenses/dependencies/rust-hyper-rustls-0.27.10/LICENSE-APACHE",
+      "licenses/dependencies/rust-hyper-rustls-0.27.10/LICENSE-ISC",
+      "licenses/dependencies/rust-hyper-rustls-0.27.10/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "hyper-util",
+    "version": "0.1.21",
+    "declared_license": "MIT",
+    "repository": "https://github.com/hyperium/hyper-util",
+    "notices": [
+      "licenses/dependencies/rust-hyper-util-0.1.21/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ico",
+    "version": "0.6.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/mdsteele/rust-ico",
+    "notices": [
+      "licenses/dependencies/rust-ico-0.6.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "icu_collections",
+    "version": "2.4.0",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-icu_collections-2.4.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "icu_locale_core",
+    "version": "2.4.0",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-icu_locale_core-2.4.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "icu_normalizer",
+    "version": "2.4.0",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-icu_normalizer-2.4.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "icu_normalizer_data",
+    "version": "2.4.0",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-icu_normalizer_data-2.4.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "icu_properties",
+    "version": "2.4.0",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-icu_properties-2.4.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "icu_properties_data",
+    "version": "2.4.0",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-icu_properties_data-2.4.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "icu_provider",
+    "version": "2.4.0",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-icu_provider-2.4.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ident_case",
+    "version": "1.0.1",
+    "declared_license": "MIT/Apache-2.0",
+    "repository": "https://github.com/TedDriggs/ident_case",
+    "notices": [
+      "licenses/dependencies/rust-ident_case-1.0.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "idna",
+    "version": "1.1.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/rust-url/",
+    "notices": [
+      "licenses/dependencies/rust-idna-1.1.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-idna-1.1.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "idna_adapter",
+    "version": "1.2.2",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/hsivonen/idna_adapter",
+    "notices": [
+      "licenses/dependencies/rust-idna_adapter-1.2.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-idna_adapter-1.2.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "indexmap",
+    "version": "1.9.3",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/bluss/indexmap",
+    "notices": [
+      "licenses/dependencies/rust-indexmap-1.9.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-indexmap-1.9.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "indexmap",
+    "version": "2.14.2",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/indexmap-rs/indexmap",
+    "notices": [
+      "licenses/dependencies/rust-indexmap-2.14.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-indexmap-2.14.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "infer",
+    "version": "0.22.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/bojand/infer",
+    "notices": [
+      "licenses/dependencies/rust-infer-0.22.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "inout",
+    "version": "0.1.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/utils",
+    "notices": [
+      "licenses/dependencies/rust-inout-0.1.4/LICENSE-APACHE",
+      "licenses/dependencies/rust-inout-0.1.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ipnet",
+    "version": "2.12.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/krisprice/ipnet",
+    "notices": [
+      "licenses/dependencies/rust-ipnet-2.12.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-ipnet-2.12.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "is_terminal_polyfill",
+    "version": "1.70.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/polyfill-rs/is_terminal_polyfill",
+    "notices": [
+      "licenses/dependencies/rust-is_terminal_polyfill-1.70.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-is_terminal_polyfill-1.70.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "itoa",
+    "version": "1.0.18",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/itoa",
+    "notices": [
+      "licenses/dependencies/rust-itoa-1.0.18/LICENSE-APACHE",
+      "licenses/dependencies/rust-itoa-1.0.18/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "jiff",
+    "version": "0.2.39",
+    "declared_license": "Unlicense OR MIT",
+    "repository": "https://github.com/BurntSushi/jiff",
+    "notices": [
+      "licenses/dependencies/rust-jiff-0.2.39/LICENSE-MIT",
+      "licenses/dependencies/rust-jiff-0.2.39/COPYING",
+      "licenses/dependencies/rust-jiff-0.2.39/UNLICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "jiff-core",
+    "version": "0.1.2",
+    "declared_license": "Unlicense OR MIT",
+    "repository": "https://github.com/BurntSushi/jiff",
+    "notices": [
+      "licenses/dependencies/rust-jiff-core-0.1.2/LICENSE-MIT",
+      "licenses/dependencies/rust-jiff-core-0.1.2/COPYING",
+      "licenses/dependencies/rust-jiff-core-0.1.2/UNLICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "jiff-tzdb",
+    "version": "0.1.9",
+    "declared_license": "Unlicense OR MIT",
+    "repository": "https://github.com/BurntSushi/jiff",
+    "notices": [
+      "licenses/dependencies/rust-jiff-tzdb-0.1.9/LICENSE-MIT",
+      "licenses/dependencies/rust-jiff-tzdb-0.1.9/COPYING",
+      "licenses/dependencies/rust-jiff-tzdb-0.1.9/UNLICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "jiff-tzdb-platform",
+    "version": "0.1.3",
+    "declared_license": "Unlicense OR MIT",
+    "repository": "https://github.com/BurntSushi/jiff",
+    "notices": [
+      "licenses/dependencies/rust-jiff-tzdb-platform-0.1.3/LICENSE-MIT",
+      "licenses/dependencies/rust-jiff-tzdb-platform-0.1.3/COPYING",
+      "licenses/dependencies/rust-jiff-tzdb-platform-0.1.3/UNLICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "json-patch",
+    "version": "4.2.0",
+    "declared_license": "MIT/Apache-2.0",
+    "repository": "https://github.com/idubrov/json-patch",
+    "notices": [
+      "licenses/dependencies/rust-json-patch-4.2.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-json-patch-4.2.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "jsonptr",
+    "version": "0.7.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/chanced/jsonptr",
+    "notices": [
+      "licenses/dependencies/rust-jsonptr-0.7.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-jsonptr-0.7.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "keyboard-types",
+    "version": "0.8.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-windowing/keyboard-types",
+    "notices": [
+      "licenses/dependencies/rust-keyboard-types-0.8.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-keyboard-types-0.8.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "keyring",
+    "version": "3.6.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/hwchen/keyring-rs.git",
+    "notices": [
+      "licenses/dependencies/rust-keyring-3.6.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-keyring-3.6.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "libc",
+    "version": "0.2.191",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/libc",
+    "notices": [
+      "licenses/dependencies/rust-libc-0.2.191/LICENSE-APACHE",
+      "licenses/dependencies/rust-libc-0.2.191/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "libsqlite3-sys",
+    "version": "0.30.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/rusqlite/rusqlite",
+    "notices": [
+      "licenses/dependencies/rust-libsqlite3-sys-0.30.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "litemap",
+    "version": "0.8.3",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-litemap-0.8.3/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "lock_api",
+    "version": "0.4.14",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/Amanieu/parking_lot",
+    "notices": [
+      "licenses/dependencies/rust-lock_api-0.4.14/LICENSE-APACHE",
+      "licenses/dependencies/rust-lock_api-0.4.14/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "log",
+    "version": "0.4.35",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/log",
+    "notices": [
+      "licenses/dependencies/rust-log-0.4.35/LICENSE-APACHE",
+      "licenses/dependencies/rust-log-0.4.35/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "lru-slab",
+    "version": "0.1.3",
+    "declared_license": "MIT OR Apache-2.0 OR Zlib",
+    "repository": "https://github.com/Ralith/lru-slab",
+    "notices": [
+      "licenses/dependencies/rust-lru-slab-0.1.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-lru-slab-0.1.3/LICENSE-MIT",
+      "licenses/dependencies/rust-lru-slab-0.1.3/LICENSE-ZLIB"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "markup5ever",
+    "version": "0.39.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/html5ever",
+    "notices": [
+      "licenses/dependencies/rust-markup5ever-0.39.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-markup5ever-0.39.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "memchr",
+    "version": "2.8.3",
+    "declared_license": "Unlicense OR MIT",
+    "repository": "https://github.com/BurntSushi/memchr",
+    "notices": [
+      "licenses/dependencies/rust-memchr-2.8.3/LICENSE-MIT",
+      "licenses/dependencies/rust-memchr-2.8.3/COPYING",
+      "licenses/dependencies/rust-memchr-2.8.3/UNLICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "mime",
+    "version": "0.3.17",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/hyperium/mime",
+    "notices": [
+      "licenses/dependencies/rust-mime-0.3.17/LICENSE-APACHE",
+      "licenses/dependencies/rust-mime-0.3.17/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "miniz_oxide",
+    "version": "0.8.9",
+    "declared_license": "MIT OR Zlib OR Apache-2.0",
+    "repository": "https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide",
+    "notices": [
+      "licenses/dependencies/rust-miniz_oxide-0.8.9/LICENSE",
+      "licenses/dependencies/rust-miniz_oxide-0.8.9/LICENSE-APACHE.md",
+      "licenses/dependencies/rust-miniz_oxide-0.8.9/LICENSE-MIT.md",
+      "licenses/dependencies/rust-miniz_oxide-0.8.9/LICENSE-ZLIB.md"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "miniz_oxide",
+    "version": "0.9.1",
+    "declared_license": "MIT OR Zlib OR Apache-2.0",
+    "repository": "https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide",
+    "notices": [
+      "licenses/dependencies/rust-miniz_oxide-0.9.1/LICENSE",
+      "licenses/dependencies/rust-miniz_oxide-0.9.1/LICENSE-APACHE.md",
+      "licenses/dependencies/rust-miniz_oxide-0.9.1/LICENSE-MIT.md",
+      "licenses/dependencies/rust-miniz_oxide-0.9.1/LICENSE-ZLIB.md"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "mio",
+    "version": "1.2.4",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tokio-rs/mio",
+    "notices": [
+      "licenses/dependencies/rust-mio-1.2.4/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "muda",
+    "version": "0.20.0",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/muda",
+    "notices": [
+      "licenses/dependencies/rust-muda-0.20.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-muda-0.20.0/LICENSE-MIT",
+      "licenses/dependencies/rust-muda-0.20.0/LICENSE.spdx"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "new_debug_unreachable",
+    "version": "1.0.6",
+    "declared_license": "MIT",
+    "repository": "https://github.com/mbrubeck/rust-debug-unreachable",
+    "notices": [
+      "licenses/dependencies/rust-new_debug_unreachable-1.0.6/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "notify-rust",
+    "version": "4.18.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/hoodie/notify-rust",
+    "notices": [
+      "licenses/dependencies/rust-notify-rust-4.18.2/LICENSE-Apache",
+      "licenses/dependencies/rust-notify-rust-4.18.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "num-conv",
+    "version": "0.2.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/jhpratt/num-conv",
+    "notices": [
+      "licenses/dependencies/rust-num-conv-0.2.2/LICENSE-Apache",
+      "licenses/dependencies/rust-num-conv-0.2.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "num-traits",
+    "version": "0.2.19",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-num/num-traits",
+    "notices": [
+      "licenses/dependencies/rust-num-traits-0.2.19/LICENSE-APACHE",
+      "licenses/dependencies/rust-num-traits-0.2.19/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "once_cell",
+    "version": "1.21.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/matklad/once_cell",
+    "notices": [
+      "licenses/dependencies/rust-once_cell-1.21.4/LICENSE-APACHE",
+      "licenses/dependencies/rust-once_cell-1.21.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "once_cell_polyfill",
+    "version": "1.70.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/polyfill-rs/once_cell_polyfill",
+    "notices": [
+      "licenses/dependencies/rust-once_cell_polyfill-1.70.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-once_cell_polyfill-1.70.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "opaque-debug",
+    "version": "0.3.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/utils",
+    "notices": [
+      "licenses/dependencies/rust-opaque-debug-0.3.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-opaque-debug-0.3.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "open",
+    "version": "5.4.5",
+    "declared_license": "MIT",
+    "repository": "https://github.com/Byron/open-rs",
+    "notices": [
+      "licenses/dependencies/rust-open-5.4.5/LICENSE.md"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "option-ext",
+    "version": "0.2.0",
+    "declared_license": "MPL-2.0",
+    "repository": "https://github.com/soc/option-ext.git",
+    "notices": [
+      "licenses/dependencies/rust-option-ext-0.2.0/LICENSE.txt"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "parking_lot",
+    "version": "0.12.5",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/Amanieu/parking_lot",
+    "notices": [
+      "licenses/dependencies/rust-parking_lot-0.12.5/LICENSE-APACHE",
+      "licenses/dependencies/rust-parking_lot-0.12.5/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "parking_lot_core",
+    "version": "0.9.12",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/Amanieu/parking_lot",
+    "notices": [
+      "licenses/dependencies/rust-parking_lot_core-0.9.12/LICENSE-APACHE",
+      "licenses/dependencies/rust-parking_lot_core-0.9.12/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "percent-encoding",
+    "version": "2.3.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/rust-url/",
+    "notices": [
+      "licenses/dependencies/rust-percent-encoding-2.3.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-percent-encoding-2.3.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "phf",
+    "version": "0.13.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/rust-phf/rust-phf",
+    "notices": [
+      "licenses/dependencies/rust-phf-0.13.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "phf_codegen",
+    "version": "0.13.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/rust-phf/rust-phf",
+    "notices": [
+      "licenses/dependencies/rust-phf_codegen-0.13.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "phf_generator",
+    "version": "0.13.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/rust-phf/rust-phf",
+    "notices": [
+      "licenses/dependencies/rust-phf_generator-0.13.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "phf_macros",
+    "version": "0.13.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/rust-phf/rust-phf",
+    "notices": [
+      "licenses/dependencies/rust-phf_macros-0.13.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "phf_shared",
+    "version": "0.13.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/rust-phf/rust-phf",
+    "notices": [
+      "licenses/dependencies/rust-phf_shared-0.13.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "pin-project-lite",
+    "version": "0.2.17",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/taiki-e/pin-project-lite",
+    "notices": [
+      "licenses/dependencies/rust-pin-project-lite-0.2.17/LICENSE-APACHE",
+      "licenses/dependencies/rust-pin-project-lite-0.2.17/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "pkg-config",
+    "version": "0.3.34",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/pkg-config-rs",
+    "notices": [
+      "licenses/dependencies/rust-pkg-config-0.3.34/LICENSE-APACHE",
+      "licenses/dependencies/rust-pkg-config-0.3.34/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "plist",
+    "version": "1.10.3",
+    "declared_license": "MIT",
+    "repository": "https://github.com/ebarnard/rust-plist/",
+    "notices": [
+      "licenses/dependencies/rust-plist-1.10.3/LICENCE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "png",
+    "version": "0.18.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/image-rs/image-png",
+    "notices": [
+      "licenses/dependencies/rust-png-0.18.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-png-0.18.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "polyval",
+    "version": "0.6.2",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/RustCrypto/universal-hashes",
+    "notices": [
+      "licenses/dependencies/rust-polyval-0.6.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-polyval-0.6.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "potential_utf",
+    "version": "0.1.6",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-potential_utf-0.1.6/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "powerfmt",
+    "version": "0.2.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/jhpratt/powerfmt",
+    "notices": [
+      "licenses/dependencies/rust-powerfmt-0.2.1/LICENSE-Apache",
+      "licenses/dependencies/rust-powerfmt-0.2.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ppv-lite86",
+    "version": "0.2.21",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/cryptocorrosion/cryptocorrosion",
+    "notices": [
+      "licenses/dependencies/rust-ppv-lite86-0.2.21/LICENSE-APACHE",
+      "licenses/dependencies/rust-ppv-lite86-0.2.21/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "precomputed-hash",
+    "version": "0.1.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/emilio/precomputed-hash",
+    "notices": [
+      "licenses/dependencies/rust-precomputed-hash-0.1.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "proc-macro2",
+    "version": "1.0.107",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/proc-macro2",
+    "notices": [
+      "licenses/dependencies/rust-proc-macro2-1.0.107/LICENSE-APACHE",
+      "licenses/dependencies/rust-proc-macro2-1.0.107/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "quick-xml",
+    "version": "0.42.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tafia/quick-xml",
+    "notices": [
+      "licenses/dependencies/rust-quick-xml-0.42.0/LICENSE-MIT.md"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "quinn",
+    "version": "0.11.12",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/quinn-rs/quinn",
+    "notices": [
+      "licenses/dependencies/rust-quinn-0.11.12/LICENSE-APACHE",
+      "licenses/dependencies/rust-quinn-0.11.12/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "quinn-proto",
+    "version": "0.11.19",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/quinn-rs/quinn",
+    "notices": [
+      "licenses/dependencies/rust-quinn-proto-0.11.19/LICENSE-APACHE",
+      "licenses/dependencies/rust-quinn-proto-0.11.19/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "quinn-udp",
+    "version": "0.5.16",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/quinn-rs/quinn",
+    "notices": [
+      "licenses/dependencies/rust-quinn-udp-0.5.16/LICENSE-APACHE",
+      "licenses/dependencies/rust-quinn-udp-0.5.16/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "quote",
+    "version": "1.0.47",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/quote",
+    "notices": [
+      "licenses/dependencies/rust-quote-1.0.47/LICENSE-APACHE",
+      "licenses/dependencies/rust-quote-1.0.47/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rand",
+    "version": "0.8.8",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-random/rand",
+    "notices": [
+      "licenses/dependencies/rust-rand-0.8.8/LICENSE-APACHE",
+      "licenses/dependencies/rust-rand-0.8.8/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rand",
+    "version": "0.10.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-random/rand",
+    "notices": [
+      "licenses/dependencies/rust-rand-0.10.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-rand-0.10.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rand_chacha",
+    "version": "0.3.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-random/rand",
+    "notices": [
+      "licenses/dependencies/rust-rand_chacha-0.3.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-rand_chacha-0.3.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rand_core",
+    "version": "0.6.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-random/rand",
+    "notices": [
+      "licenses/dependencies/rust-rand_core-0.6.4/LICENSE-APACHE",
+      "licenses/dependencies/rust-rand_core-0.6.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rand_core",
+    "version": "0.10.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-random/rand_core",
+    "notices": [
+      "licenses/dependencies/rust-rand_core-0.10.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-rand_core-0.10.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rand_pcg",
+    "version": "0.10.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-random/rngs",
+    "notices": [
+      "licenses/dependencies/rust-rand_pcg-0.10.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-rand_pcg-0.10.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "raw-window-handle",
+    "version": "0.6.2",
+    "declared_license": "MIT OR Apache-2.0 OR Zlib",
+    "repository": "https://github.com/rust-windowing/raw-window-handle",
+    "notices": [
+      "licenses/dependencies/rust-raw-window-handle-0.6.2/LICENSE-APACHE.md",
+      "licenses/dependencies/rust-raw-window-handle-0.6.2/LICENSE-MIT.md",
+      "licenses/dependencies/rust-raw-window-handle-0.6.2/LICENSE-ZLIB.md"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ref-cast",
+    "version": "1.0.27",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/ref-cast",
+    "notices": [
+      "licenses/dependencies/rust-ref-cast-1.0.27/LICENSE-APACHE",
+      "licenses/dependencies/rust-ref-cast-1.0.27/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ref-cast-impl",
+    "version": "1.0.27",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/ref-cast",
+    "notices": [
+      "licenses/dependencies/rust-ref-cast-impl-1.0.27/LICENSE-APACHE",
+      "licenses/dependencies/rust-ref-cast-impl-1.0.27/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "regex",
+    "version": "1.13.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/regex",
+    "notices": [
+      "licenses/dependencies/rust-regex-1.13.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-regex-1.13.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "regex-automata",
+    "version": "0.4.18",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/regex",
+    "notices": [
+      "licenses/dependencies/rust-regex-automata-0.4.18/LICENSE-APACHE",
+      "licenses/dependencies/rust-regex-automata-0.4.18/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "regex-syntax",
+    "version": "0.8.11",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/regex",
+    "notices": [
+      "licenses/dependencies/rust-regex-syntax-0.8.11/LICENSE-APACHE",
+      "licenses/dependencies/rust-regex-syntax-0.8.11/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "reqwest",
+    "version": "0.12.28",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/seanmonstar/reqwest",
+    "notices": [
+      "licenses/dependencies/rust-reqwest-0.12.28/LICENSE-APACHE",
+      "licenses/dependencies/rust-reqwest-0.12.28/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rfd",
+    "version": "0.17.2",
+    "declared_license": "MIT",
+    "repository": "https://github.com/PolyMeilex/rfd",
+    "notices": [
+      "licenses/dependencies/rust-rfd-0.17.2/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ring",
+    "version": "0.17.14",
+    "declared_license": "Apache-2.0 AND ISC",
+    "repository": "https://github.com/briansmith/ring",
+    "notices": [
+      "licenses/dependencies/rust-ring-0.17.14/LICENSE",
+      "licenses/dependencies/rust-ring-0.17.14/LICENSE-BoringSSL",
+      "licenses/dependencies/rust-ring-0.17.14/LICENSE-other-bits"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rusqlite",
+    "version": "0.32.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/rusqlite/rusqlite",
+    "notices": [
+      "licenses/dependencies/rust-rusqlite-0.32.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rustc-hash",
+    "version": "2.1.3",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/rust-lang/rustc-hash",
+    "notices": [
+      "licenses/dependencies/rust-rustc-hash-2.1.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-rustc-hash-2.1.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rustc_version",
+    "version": "0.4.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/djc/rustc-version-rs",
+    "notices": [
+      "licenses/dependencies/rust-rustc_version-0.4.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-rustc_version-0.4.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rustls",
+    "version": "0.23.46",
+    "declared_license": "Apache-2.0 OR ISC OR MIT",
+    "repository": "https://github.com/rustls/rustls",
+    "notices": [
+      "licenses/dependencies/rust-rustls-0.23.46/LICENSE-APACHE",
+      "licenses/dependencies/rust-rustls-0.23.46/LICENSE-ISC",
+      "licenses/dependencies/rust-rustls-0.23.46/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rustls-pki-types",
+    "version": "1.15.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rustls/pki-types",
+    "notices": [
+      "licenses/dependencies/rust-rustls-pki-types-1.15.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-rustls-pki-types-1.15.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "rustls-webpki",
+    "version": "0.103.16",
+    "declared_license": "ISC",
+    "repository": "https://github.com/rustls/webpki",
+    "notices": [
+      "licenses/dependencies/rust-rustls-webpki-0.103.16/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "ryu",
+    "version": "1.0.23",
+    "declared_license": "Apache-2.0 OR BSL-1.0",
+    "repository": "https://github.com/dtolnay/ryu",
+    "notices": [
+      "licenses/dependencies/rust-ryu-1.0.23/LICENSE-APACHE",
+      "licenses/dependencies/rust-ryu-1.0.23/LICENSE-BOOST"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "same-file",
+    "version": "1.0.6",
+    "declared_license": "Unlicense/MIT",
+    "repository": "https://github.com/BurntSushi/same-file",
+    "notices": [
+      "licenses/dependencies/rust-same-file-1.0.6/LICENSE-MIT",
+      "licenses/dependencies/rust-same-file-1.0.6/COPYING",
+      "licenses/dependencies/rust-same-file-1.0.6/UNLICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "schemars",
+    "version": "0.8.22",
+    "declared_license": "MIT",
+    "repository": "https://github.com/GREsau/schemars",
+    "notices": [
+      "licenses/dependencies/rust-schemars-0.8.22/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "schemars",
+    "version": "0.9.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/GREsau/schemars",
+    "notices": [
+      "licenses/dependencies/rust-schemars-0.9.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "schemars",
+    "version": "1.2.3",
+    "declared_license": "MIT",
+    "repository": "https://github.com/GREsau/schemars",
+    "notices": [
+      "licenses/dependencies/rust-schemars-1.2.3/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "schemars_derive",
+    "version": "0.8.22",
+    "declared_license": "MIT",
+    "repository": "https://github.com/GREsau/schemars",
+    "notices": [
+      "licenses/dependencies/rust-schemars_derive-0.8.22/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "scopeguard",
+    "version": "1.2.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/bluss/scopeguard",
+    "notices": [
+      "licenses/dependencies/rust-scopeguard-1.2.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-scopeguard-1.2.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "selectors",
+    "version": "0.38.0",
+    "declared_license": "MPL-2.0",
+    "repository": "https://github.com/servo/stylo",
+    "notices": []
+  },
+  {
+    "ecosystem": "rust",
+    "name": "semver",
+    "version": "1.0.28",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/semver",
+    "notices": [
+      "licenses/dependencies/rust-semver-1.0.28/LICENSE-APACHE",
+      "licenses/dependencies/rust-semver-1.0.28/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serde",
+    "version": "1.0.229",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/serde-rs/serde",
+    "notices": [
+      "licenses/dependencies/rust-serde-1.0.229/LICENSE-APACHE",
+      "licenses/dependencies/rust-serde-1.0.229/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serde-untagged",
+    "version": "0.1.9",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/serde-untagged",
+    "notices": [
+      "licenses/dependencies/rust-serde-untagged-0.1.9/LICENSE-APACHE",
+      "licenses/dependencies/rust-serde-untagged-0.1.9/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serde_core",
+    "version": "1.0.229",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/serde-rs/serde",
+    "notices": [
+      "licenses/dependencies/rust-serde_core-1.0.229/LICENSE-APACHE",
+      "licenses/dependencies/rust-serde_core-1.0.229/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serde_derive",
+    "version": "1.0.229",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/serde-rs/serde",
+    "notices": [
+      "licenses/dependencies/rust-serde_derive-1.0.229/LICENSE-APACHE",
+      "licenses/dependencies/rust-serde_derive-1.0.229/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serde_derive_internals",
+    "version": "0.29.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/serde-rs/serde",
+    "notices": [
+      "licenses/dependencies/rust-serde_derive_internals-0.29.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-serde_derive_internals-0.29.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serde_json",
+    "version": "1.0.154",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/serde-rs/json",
+    "notices": [
+      "licenses/dependencies/rust-serde_json-1.0.154/LICENSE-APACHE",
+      "licenses/dependencies/rust-serde_json-1.0.154/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serde_repr",
+    "version": "0.1.21",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/serde-repr",
+    "notices": [
+      "licenses/dependencies/rust-serde_repr-0.1.21/LICENSE-APACHE",
+      "licenses/dependencies/rust-serde_repr-0.1.21/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serde_spanned",
+    "version": "1.1.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/toml-rs/toml",
+    "notices": [
+      "licenses/dependencies/rust-serde_spanned-1.1.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-serde_spanned-1.1.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serde_urlencoded",
+    "version": "0.7.1",
+    "declared_license": "MIT/Apache-2.0",
+    "repository": "https://github.com/nox/serde_urlencoded",
+    "notices": [
+      "licenses/dependencies/rust-serde_urlencoded-0.7.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-serde_urlencoded-0.7.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serde_with",
+    "version": "3.24.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/jonasbb/serde_with/",
+    "notices": [
+      "licenses/dependencies/rust-serde_with-3.24.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-serde_with-3.24.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serde_with_macros",
+    "version": "3.24.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/jonasbb/serde_with/",
+    "notices": [
+      "licenses/dependencies/rust-serde_with_macros-3.24.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-serde_with_macros-3.24.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serialize-to-javascript",
+    "version": "0.1.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/chippers/serialize-to-javascript",
+    "notices": [
+      "licenses/dependencies/rust-serialize-to-javascript-0.1.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-serialize-to-javascript-0.1.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "serialize-to-javascript-impl",
+    "version": "0.1.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/chippers/serialize-to-javascript",
+    "notices": [
+      "licenses/dependencies/rust-serialize-to-javascript-impl-0.1.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-serialize-to-javascript-impl-0.1.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "servo_arc",
+    "version": "0.4.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/stylo",
+    "notices": [
+      "licenses/dependencies/rust-servo_arc-0.4.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-servo_arc-0.4.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "sha2",
+    "version": "0.10.9",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/hashes",
+    "notices": [
+      "licenses/dependencies/rust-sha2-0.10.9/LICENSE-APACHE",
+      "licenses/dependencies/rust-sha2-0.10.9/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "shlex",
+    "version": "2.0.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/comex/rust-shlex",
+    "notices": [
+      "licenses/dependencies/rust-shlex-2.0.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-shlex-2.0.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "simd-adler32",
+    "version": "0.3.10",
+    "declared_license": "MIT",
+    "repository": "https://github.com/mcountryman/simd-adler32",
+    "notices": [
+      "licenses/dependencies/rust-simd-adler32-0.3.10/LICENSE.md"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "siphasher",
+    "version": "1.0.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/jedisct1/rust-siphash",
+    "notices": [
+      "licenses/dependencies/rust-siphasher-1.0.4/LICENSE-APACHE",
+      "licenses/dependencies/rust-siphasher-1.0.4/LICENSE-MIT",
+      "licenses/dependencies/rust-siphasher-1.0.4/COPYING"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "slab",
+    "version": "0.4.12",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tokio-rs/slab",
+    "notices": [
+      "licenses/dependencies/rust-slab-0.4.12/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "smallvec",
+    "version": "1.16.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/rust-smallvec",
+    "notices": [
+      "licenses/dependencies/rust-smallvec-1.16.4/LICENSE-APACHE",
+      "licenses/dependencies/rust-smallvec-1.16.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "socket2",
+    "version": "0.6.5",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-lang/socket2",
+    "notices": [
+      "licenses/dependencies/rust-socket2-0.6.5/LICENSE-APACHE",
+      "licenses/dependencies/rust-socket2-0.6.5/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "softbuffer",
+    "version": "0.4.8",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rust-windowing/softbuffer",
+    "notices": [
+      "licenses/dependencies/rust-softbuffer-0.4.8/LICENSE-APACHE",
+      "licenses/dependencies/rust-softbuffer-0.4.8/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "stable_deref_trait",
+    "version": "1.2.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/storyyeller/stable_deref_trait",
+    "notices": [
+      "licenses/dependencies/rust-stable_deref_trait-1.2.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-stable_deref_trait-1.2.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "static_vcruntime",
+    "version": "3.0.0",
+    "declared_license": "MIT OR Apache-2.0 OR Zlib",
+    "repository": "https://github.com/ChrisDenton/static_vcruntime",
+    "notices": [
+      "licenses/dependencies/rust-static_vcruntime-3.0.0/LICENSE",
+      "licenses/dependencies/rust-static_vcruntime-3.0.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-static_vcruntime-3.0.0/LICENSE-MIT",
+      "licenses/dependencies/rust-static_vcruntime-3.0.0/LICENSE-ZLIB"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "string_cache",
+    "version": "0.9.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/string-cache",
+    "notices": [
+      "licenses/dependencies/rust-string_cache-0.9.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-string_cache-0.9.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "string_cache_codegen",
+    "version": "0.6.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/string-cache",
+    "notices": [
+      "licenses/dependencies/rust-string_cache_codegen-0.6.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-string_cache_codegen-0.6.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "strsim",
+    "version": "0.11.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/rapidfuzz/strsim-rs",
+    "notices": [
+      "licenses/dependencies/rust-strsim-0.11.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "subtle",
+    "version": "2.6.1",
+    "declared_license": "BSD-3-Clause",
+    "repository": "https://github.com/dalek-cryptography/subtle",
+    "notices": [
+      "licenses/dependencies/rust-subtle-2.6.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "syn",
+    "version": "2.0.119",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/syn",
+    "notices": [
+      "licenses/dependencies/rust-syn-2.0.119/LICENSE-APACHE",
+      "licenses/dependencies/rust-syn-2.0.119/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "syn",
+    "version": "3.0.9",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/syn",
+    "notices": [
+      "licenses/dependencies/rust-syn-3.0.9/LICENSE-APACHE",
+      "licenses/dependencies/rust-syn-3.0.9/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "sync_wrapper",
+    "version": "1.0.2",
+    "declared_license": "Apache-2.0",
+    "repository": "https://github.com/Actyx/sync_wrapper",
+    "notices": [
+      "licenses/dependencies/rust-sync_wrapper-1.0.2/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "synstructure",
+    "version": "0.14.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/mystor/synstructure",
+    "notices": [
+      "licenses/dependencies/rust-synstructure-0.14.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tao",
+    "version": "0.37.2",
+    "declared_license": "Apache-2.0",
+    "repository": "https://github.com/tauri-apps/tao",
+    "notices": [
+      "licenses/dependencies/rust-tao-0.37.2/LICENSE",
+      "licenses/dependencies/rust-tao-0.37.2/LICENSE.spdx"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri",
+    "version": "2.12.5",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/tauri",
+    "notices": [
+      "licenses/dependencies/rust-tauri-2.12.5/LICENSE-APACHE-2.0",
+      "licenses/dependencies/rust-tauri-2.12.5/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-build",
+    "version": "2.7.4",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/tauri",
+    "notices": [
+      "licenses/dependencies/rust-tauri-build-2.7.4/LICENSE-APACHE-2.0",
+      "licenses/dependencies/rust-tauri-build-2.7.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-codegen",
+    "version": "2.7.4",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/tauri",
+    "notices": [
+      "licenses/dependencies/rust-tauri-codegen-2.7.4/LICENSE-APACHE-2.0",
+      "licenses/dependencies/rust-tauri-codegen-2.7.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-macros",
+    "version": "2.7.4",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/tauri",
+    "notices": [
+      "licenses/dependencies/rust-tauri-macros-2.7.4/LICENSE-APACHE-2.0",
+      "licenses/dependencies/rust-tauri-macros-2.7.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-plugin",
+    "version": "2.7.2",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/tauri",
+    "notices": []
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-plugin-dialog",
+    "version": "2.8.4",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/plugins-workspace",
+    "notices": [
+      "licenses/dependencies/rust-tauri-plugin-dialog-2.8.4/LICENSE.spdx",
+      "licenses/dependencies/rust-tauri-plugin-dialog-2.8.4/LICENSE_APACHE-2.0",
+      "licenses/dependencies/rust-tauri-plugin-dialog-2.8.4/LICENSE_MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-plugin-fs",
+    "version": "2.7.1",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/plugins-workspace",
+    "notices": [
+      "licenses/dependencies/rust-tauri-plugin-fs-2.7.1/LICENSE.spdx",
+      "licenses/dependencies/rust-tauri-plugin-fs-2.7.1/LICENSE_APACHE-2.0",
+      "licenses/dependencies/rust-tauri-plugin-fs-2.7.1/LICENSE_MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-plugin-notification",
+    "version": "2.8.0",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/plugins-workspace",
+    "notices": [
+      "licenses/dependencies/rust-tauri-plugin-notification-2.8.0/LICENSE.spdx",
+      "licenses/dependencies/rust-tauri-plugin-notification-2.8.0/LICENSE_APACHE-2.0",
+      "licenses/dependencies/rust-tauri-plugin-notification-2.8.0/LICENSE_MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-plugin-opener",
+    "version": "2.7.2",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/plugins-workspace",
+    "notices": [
+      "licenses/dependencies/rust-tauri-plugin-opener-2.7.2/LICENSE.spdx",
+      "licenses/dependencies/rust-tauri-plugin-opener-2.7.2/LICENSE_APACHE-2.0",
+      "licenses/dependencies/rust-tauri-plugin-opener-2.7.2/LICENSE_MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-runtime",
+    "version": "2.12.2",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/tauri",
+    "notices": [
+      "licenses/dependencies/rust-tauri-runtime-2.12.2/LICENSE-APACHE-2.0",
+      "licenses/dependencies/rust-tauri-runtime-2.12.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-runtime-wry",
+    "version": "2.12.3",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/tauri",
+    "notices": [
+      "licenses/dependencies/rust-tauri-runtime-wry-2.12.3/LICENSE-APACHE-2.0",
+      "licenses/dependencies/rust-tauri-runtime-wry-2.12.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-utils",
+    "version": "2.10.2",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/tauri",
+    "notices": [
+      "licenses/dependencies/rust-tauri-utils-2.10.2/LICENSE-APACHE-2.0",
+      "licenses/dependencies/rust-tauri-utils-2.10.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-winres",
+    "version": "0.3.7",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tauri-apps/winres",
+    "notices": [
+      "licenses/dependencies/rust-tauri-winres-0.3.7/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tauri-winrt-notification",
+    "version": "0.8.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/tauri-apps/winrt-notification",
+    "notices": [
+      "licenses/dependencies/rust-tauri-winrt-notification-0.8.1/LICENSE.spdx",
+      "licenses/dependencies/rust-tauri-winrt-notification-0.8.1/LICENSE_APACHE-2.0",
+      "licenses/dependencies/rust-tauri-winrt-notification-0.8.1/LICENSE_MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tempfile",
+    "version": "3.27.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/Stebalien/tempfile",
+    "notices": [
+      "licenses/dependencies/rust-tempfile-3.27.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-tempfile-3.27.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tendril",
+    "version": "0.5.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/html5ever",
+    "notices": [
+      "licenses/dependencies/rust-tendril-0.5.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-tendril-0.5.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "thiserror",
+    "version": "2.0.21",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/thiserror",
+    "notices": [
+      "licenses/dependencies/rust-thiserror-2.0.21/LICENSE-APACHE",
+      "licenses/dependencies/rust-thiserror-2.0.21/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "thiserror-impl",
+    "version": "2.0.21",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/thiserror",
+    "notices": [
+      "licenses/dependencies/rust-thiserror-impl-2.0.21/LICENSE-APACHE",
+      "licenses/dependencies/rust-thiserror-impl-2.0.21/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "time",
+    "version": "0.3.55",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/time-rs/time",
+    "notices": [
+      "licenses/dependencies/rust-time-0.3.55/LICENSE-Apache",
+      "licenses/dependencies/rust-time-0.3.55/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "time-core",
+    "version": "0.1.9",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/time-rs/time",
+    "notices": [
+      "licenses/dependencies/rust-time-core-0.1.9/LICENSE-Apache",
+      "licenses/dependencies/rust-time-core-0.1.9/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "time-macros",
+    "version": "0.2.32",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/time-rs/time",
+    "notices": [
+      "licenses/dependencies/rust-time-macros-0.2.32/LICENSE-Apache",
+      "licenses/dependencies/rust-time-macros-0.2.32/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tinystr",
+    "version": "0.8.5",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-tinystr-0.8.5/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tinyvec",
+    "version": "1.13.3",
+    "declared_license": "Zlib OR Apache-2.0 OR MIT",
+    "repository": "https://github.com/Lokathor/tinyvec",
+    "notices": [
+      "licenses/dependencies/rust-tinyvec-1.13.3/LICENSE-APACHE.md",
+      "licenses/dependencies/rust-tinyvec-1.13.3/LICENSE-MIT.md",
+      "licenses/dependencies/rust-tinyvec-1.13.3/LICENSE-ZLIB.md"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tokio",
+    "version": "1.54.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tokio-rs/tokio",
+    "notices": [
+      "licenses/dependencies/rust-tokio-1.54.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tokio-macros",
+    "version": "2.7.2",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tokio-rs/tokio",
+    "notices": [
+      "licenses/dependencies/rust-tokio-macros-2.7.2/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tokio-rustls",
+    "version": "0.26.6",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/rustls/tokio-rustls",
+    "notices": [
+      "licenses/dependencies/rust-tokio-rustls-0.26.6/LICENSE-APACHE",
+      "licenses/dependencies/rust-tokio-rustls-0.26.6/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tokio-util",
+    "version": "0.7.20",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tokio-rs/tokio",
+    "notices": [
+      "licenses/dependencies/rust-tokio-util-0.7.20/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "toml",
+    "version": "1.1.8+spec-1.1.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/toml-rs/toml",
+    "notices": [
+      "licenses/dependencies/rust-toml-1.1.8_spec-1.1.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-toml-1.1.8_spec-1.1.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "toml_datetime",
+    "version": "1.1.2+spec-1.1.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/toml-rs/toml",
+    "notices": [
+      "licenses/dependencies/rust-toml_datetime-1.1.2_spec-1.1.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-toml_datetime-1.1.2_spec-1.1.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "toml_parser",
+    "version": "1.1.5+spec-1.1.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/toml-rs/toml",
+    "notices": [
+      "licenses/dependencies/rust-toml_parser-1.1.5_spec-1.1.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-toml_parser-1.1.5_spec-1.1.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "toml_writer",
+    "version": "1.1.3+spec-1.1.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/toml-rs/toml",
+    "notices": [
+      "licenses/dependencies/rust-toml_writer-1.1.3_spec-1.1.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-toml_writer-1.1.3_spec-1.1.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tower",
+    "version": "0.5.3",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tower-rs/tower",
+    "notices": [
+      "licenses/dependencies/rust-tower-0.5.3/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tower-http",
+    "version": "0.6.11",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tower-rs/tower-http",
+    "notices": [
+      "licenses/dependencies/rust-tower-http-0.6.11/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tower-layer",
+    "version": "0.3.3",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tower-rs/tower",
+    "notices": [
+      "licenses/dependencies/rust-tower-layer-0.3.3/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tower-service",
+    "version": "0.3.3",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tower-rs/tower",
+    "notices": [
+      "licenses/dependencies/rust-tower-service-0.3.3/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tracing",
+    "version": "0.1.44",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tokio-rs/tracing",
+    "notices": [
+      "licenses/dependencies/rust-tracing-0.1.44/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tracing-attributes",
+    "version": "0.1.31",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tokio-rs/tracing",
+    "notices": [
+      "licenses/dependencies/rust-tracing-attributes-0.1.31/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tracing-core",
+    "version": "0.1.36",
+    "declared_license": "MIT",
+    "repository": "https://github.com/tokio-rs/tracing",
+    "notices": [
+      "licenses/dependencies/rust-tracing-core-0.1.36/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "tray-icon",
+    "version": "0.25.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/tauri-apps/tray-icon",
+    "notices": [
+      "licenses/dependencies/rust-tray-icon-0.25.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-tray-icon-0.25.1/LICENSE-MIT",
+      "licenses/dependencies/rust-tray-icon-0.25.1/LICENSE.spdx"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "try-lock",
+    "version": "0.2.5",
+    "declared_license": "MIT",
+    "repository": "https://github.com/seanmonstar/try-lock",
+    "notices": [
+      "licenses/dependencies/rust-try-lock-0.2.5/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "typeid",
+    "version": "1.0.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/dtolnay/typeid",
+    "notices": [
+      "licenses/dependencies/rust-typeid-1.0.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-typeid-1.0.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "typenum",
+    "version": "1.20.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/paholg/typenum",
+    "notices": [
+      "licenses/dependencies/rust-typenum-1.20.1/LICENSE",
+      "licenses/dependencies/rust-typenum-1.20.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-typenum-1.20.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "unicode-ident",
+    "version": "1.0.27",
+    "declared_license": "(MIT OR Apache-2.0) AND Unicode-3.0",
+    "repository": "https://github.com/dtolnay/unicode-ident",
+    "notices": [
+      "licenses/dependencies/rust-unicode-ident-1.0.27/LICENSE-APACHE",
+      "licenses/dependencies/rust-unicode-ident-1.0.27/LICENSE-MIT",
+      "licenses/dependencies/rust-unicode-ident-1.0.27/LICENSE-UNICODE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "unicode-segmentation",
+    "version": "1.13.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/unicode-rs/unicode-segmentation",
+    "notices": [
+      "licenses/dependencies/rust-unicode-segmentation-1.13.3/LICENSE-APACHE",
+      "licenses/dependencies/rust-unicode-segmentation-1.13.3/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "universal-hash",
+    "version": "0.5.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/RustCrypto/traits",
+    "notices": [
+      "licenses/dependencies/rust-universal-hash-0.5.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-universal-hash-0.5.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "untrusted",
+    "version": "0.9.0",
+    "declared_license": "ISC",
+    "repository": "https://github.com/briansmith/untrusted",
+    "notices": [
+      "licenses/dependencies/rust-untrusted-0.9.0/LICENSE.txt"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "url",
+    "version": "2.5.8",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/rust-url",
+    "notices": [
+      "licenses/dependencies/rust-url-2.5.8/LICENSE-APACHE",
+      "licenses/dependencies/rust-url-2.5.8/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "urlpattern",
+    "version": "0.6.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/denoland/rust-urlpattern",
+    "notices": [
+      "licenses/dependencies/rust-urlpattern-0.6.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "utf8_iter",
+    "version": "1.1.0",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/hsivonen/utf8_iter",
+    "notices": [
+      "licenses/dependencies/rust-utf8_iter-1.1.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-utf8_iter-1.1.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "utf8parse",
+    "version": "0.2.2",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/alacritty/vte",
+    "notices": [
+      "licenses/dependencies/rust-utf8parse-0.2.2/LICENSE-APACHE",
+      "licenses/dependencies/rust-utf8parse-0.2.2/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "utf_types",
+    "version": "1.0.0",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/hsivonen/utf_types",
+    "notices": [
+      "licenses/dependencies/rust-utf_types-1.0.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-utf_types-1.0.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "uuid",
+    "version": "1.29.0",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/uuid-rs/uuid",
+    "notices": [
+      "licenses/dependencies/rust-uuid-1.29.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-uuid-1.29.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "vcpkg",
+    "version": "0.2.15",
+    "declared_license": "MIT/Apache-2.0",
+    "repository": "https://github.com/mcgoo/vcpkg-rs",
+    "notices": [
+      "licenses/dependencies/rust-vcpkg-0.2.15/LICENSE-APACHE",
+      "licenses/dependencies/rust-vcpkg-0.2.15/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "version_check",
+    "version": "0.9.5",
+    "declared_license": "MIT/Apache-2.0",
+    "repository": "https://github.com/SergioBenitez/version_check",
+    "notices": [
+      "licenses/dependencies/rust-version_check-0.9.5/LICENSE-APACHE",
+      "licenses/dependencies/rust-version_check-0.9.5/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "vswhom",
+    "version": "0.1.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/nabijaczleweli/vswhom.rs",
+    "notices": [
+      "licenses/dependencies/rust-vswhom-0.1.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "vswhom-sys",
+    "version": "0.1.3",
+    "declared_license": "MIT",
+    "repository": "https://github.com/nabijaczleweli/vswhom-sys.rs",
+    "notices": [
+      "licenses/dependencies/rust-vswhom-sys-0.1.3/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "walkdir",
+    "version": "2.5.0",
+    "declared_license": "Unlicense/MIT",
+    "repository": "https://github.com/BurntSushi/walkdir",
+    "notices": [
+      "licenses/dependencies/rust-walkdir-2.5.0/LICENSE-MIT",
+      "licenses/dependencies/rust-walkdir-2.5.0/COPYING",
+      "licenses/dependencies/rust-walkdir-2.5.0/UNLICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "want",
+    "version": "0.3.2",
+    "declared_license": "MIT",
+    "repository": "https://github.com/seanmonstar/want",
+    "notices": [
+      "licenses/dependencies/rust-want-0.3.2/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "web-time",
+    "version": "1.1.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/daxpedda/web-time",
+    "notices": [
+      "licenses/dependencies/rust-web-time-1.1.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-web-time-1.1.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "web_atoms",
+    "version": "0.2.6",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/servo/html5ever",
+    "notices": [
+      "licenses/dependencies/rust-web_atoms-0.2.6/LICENSE-APACHE",
+      "licenses/dependencies/rust-web_atoms-0.2.6/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "webpki-roots",
+    "version": "1.0.11",
+    "declared_license": "CDLA-Permissive-2.0",
+    "repository": "https://github.com/rustls/webpki-roots",
+    "notices": [
+      "licenses/dependencies/rust-webpki-roots-1.0.11/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "webview2-com",
+    "version": "0.39.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/wravery/webview2-rs",
+    "notices": []
+  },
+  {
+    "ecosystem": "rust",
+    "name": "webview2-com-macros",
+    "version": "0.8.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/wravery/webview2-rs",
+    "notices": []
+  },
+  {
+    "ecosystem": "rust",
+    "name": "webview2-com-sys",
+    "version": "0.39.1",
+    "declared_license": "MIT",
+    "repository": "https://github.com/wravery/webview2-rs",
+    "notices": []
+  },
+  {
+    "ecosystem": "rust",
+    "name": "winapi",
+    "version": "0.3.9",
+    "declared_license": "MIT/Apache-2.0",
+    "repository": "https://github.com/retep998/winapi-rs",
+    "notices": [
+      "licenses/dependencies/rust-winapi-0.3.9/LICENSE-APACHE",
+      "licenses/dependencies/rust-winapi-0.3.9/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "winapi-util",
+    "version": "0.1.11",
+    "declared_license": "Unlicense OR MIT",
+    "repository": "https://github.com/BurntSushi/winapi-util",
+    "notices": [
+      "licenses/dependencies/rust-winapi-util-0.1.11/LICENSE-MIT",
+      "licenses/dependencies/rust-winapi-util-0.1.11/COPYING",
+      "licenses/dependencies/rust-winapi-util-0.1.11/UNLICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "window-vibrancy",
+    "version": "0.8.1",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/tauri-plugin-vibrancy",
+    "notices": [
+      "licenses/dependencies/rust-window-vibrancy-0.8.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-window-vibrancy-0.8.1/LICENSE-MIT",
+      "licenses/dependencies/rust-window-vibrancy-0.8.1/LICENSE.spdx"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows",
+    "version": "0.62.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-0.62.2/license-apache-2.0",
+      "licenses/dependencies/rust-windows-0.62.2/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-collections",
+    "version": "0.3.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-collections-0.3.2/license-apache-2.0",
+      "licenses/dependencies/rust-windows-collections-0.3.2/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-core",
+    "version": "0.62.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-core-0.62.2/license-apache-2.0",
+      "licenses/dependencies/rust-windows-core-0.62.2/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-future",
+    "version": "0.3.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-future-0.3.2/license-apache-2.0",
+      "licenses/dependencies/rust-windows-future-0.3.2/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-implement",
+    "version": "0.60.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-implement-0.60.2/license-apache-2.0",
+      "licenses/dependencies/rust-windows-implement-0.60.2/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-interface",
+    "version": "0.59.3",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-interface-0.59.3/license-apache-2.0",
+      "licenses/dependencies/rust-windows-interface-0.59.3/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-link",
+    "version": "0.2.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-link-0.2.1/license-apache-2.0",
+      "licenses/dependencies/rust-windows-link-0.2.1/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-numerics",
+    "version": "0.3.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-numerics-0.3.1/license-apache-2.0",
+      "licenses/dependencies/rust-windows-numerics-0.3.1/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-registry",
+    "version": "0.6.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-registry-0.6.1/license-apache-2.0",
+      "licenses/dependencies/rust-windows-registry-0.6.1/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-result",
+    "version": "0.4.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-result-0.4.1/license-apache-2.0",
+      "licenses/dependencies/rust-windows-result-0.4.1/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-strings",
+    "version": "0.5.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-strings-0.5.1/license-apache-2.0",
+      "licenses/dependencies/rust-windows-strings-0.5.1/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-sys",
+    "version": "0.60.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-sys-0.60.2/license-apache-2.0",
+      "licenses/dependencies/rust-windows-sys-0.60.2/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-sys",
+    "version": "0.61.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-sys-0.61.2/license-apache-2.0",
+      "licenses/dependencies/rust-windows-sys-0.61.2/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-targets",
+    "version": "0.53.5",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-targets-0.53.5/license-apache-2.0",
+      "licenses/dependencies/rust-windows-targets-0.53.5/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-threading",
+    "version": "0.2.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-threading-0.2.1/license-apache-2.0",
+      "licenses/dependencies/rust-windows-threading-0.2.1/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows-version",
+    "version": "0.1.7",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows-version-0.1.7/license-apache-2.0",
+      "licenses/dependencies/rust-windows-version-0.1.7/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "windows_x86_64_msvc",
+    "version": "0.53.1",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/microsoft/windows-rs",
+    "notices": [
+      "licenses/dependencies/rust-windows_x86_64_msvc-0.53.1/license-apache-2.0",
+      "licenses/dependencies/rust-windows_x86_64_msvc-0.53.1/license-mit"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "winnow",
+    "version": "1.0.4",
+    "declared_license": "MIT",
+    "repository": "https://github.com/winnow-rs/winnow",
+    "notices": [
+      "licenses/dependencies/rust-winnow-1.0.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "winreg",
+    "version": "0.56.0",
+    "declared_license": "MIT",
+    "repository": "https://github.com/gentoo90/winreg-rs",
+    "notices": [
+      "licenses/dependencies/rust-winreg-0.56.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "writeable",
+    "version": "0.6.4",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-writeable-0.6.4/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "wry",
+    "version": "0.57.1",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/tauri-apps/wry",
+    "notices": [
+      "licenses/dependencies/rust-wry-0.57.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-wry-0.57.1/LICENSE-MIT",
+      "licenses/dependencies/rust-wry-0.57.1/LICENSE.spdx"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "yoke",
+    "version": "0.8.4",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-yoke-0.8.4/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "yoke-derive",
+    "version": "0.8.4",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-yoke-derive-0.8.4/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "zerocopy",
+    "version": "0.8.63",
+    "declared_license": "BSD-2-Clause OR Apache-2.0 OR MIT",
+    "repository": "https://github.com/google/zerocopy",
+    "notices": [
+      "licenses/dependencies/rust-zerocopy-0.8.63/LICENSE-APACHE",
+      "licenses/dependencies/rust-zerocopy-0.8.63/LICENSE-BSD",
+      "licenses/dependencies/rust-zerocopy-0.8.63/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "zerofrom",
+    "version": "0.1.8",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-zerofrom-0.1.8/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "zerofrom-derive",
+    "version": "0.1.8",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-zerofrom-derive-0.1.8/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "zeroize",
+    "version": "1.9.1",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/RustCrypto/utils",
+    "notices": [
+      "licenses/dependencies/rust-zeroize-1.9.1/LICENSE-APACHE",
+      "licenses/dependencies/rust-zeroize-1.9.1/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "zeroize_derive",
+    "version": "1.5.0",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": "https://github.com/RustCrypto/utils",
+    "notices": [
+      "licenses/dependencies/rust-zeroize_derive-1.5.0/LICENSE-APACHE",
+      "licenses/dependencies/rust-zeroize_derive-1.5.0/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "zerotrie",
+    "version": "0.2.5",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-zerotrie-0.2.5/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "zerovec",
+    "version": "0.11.9",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-zerovec-0.11.9/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "zerovec-derive",
+    "version": "0.11.7",
+    "declared_license": "Unicode-3.0",
+    "repository": "https://github.com/unicode-org/icu4x",
+    "notices": [
+      "licenses/dependencies/rust-zerovec-derive-0.11.7/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "zlib-rs",
+    "version": "0.6.8",
+    "declared_license": "Zlib",
+    "repository": "https://github.com/trifectatechfoundation/zlib-rs",
+    "notices": [
+      "licenses/dependencies/rust-zlib-rs-0.6.8/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "rust",
+    "name": "zmij",
+    "version": "1.0.23",
+    "declared_license": "MIT",
+    "repository": "https://github.com/dtolnay/zmij",
+    "notices": [
+      "licenses/dependencies/rust-zmij-1.0.23/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@babel/helper-string-parser",
+    "version": "7.29.11",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/babel/babel.git",
+      "directory": "packages/babel-helper-string-parser"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_babel_helper-string-parser-7.29.11/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@babel/helper-validator-identifier",
+    "version": "7.29.7",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/babel/babel.git",
+      "directory": "packages/babel-helper-validator-identifier"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_babel_helper-validator-identifier-7.29.7/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@babel/parser",
+    "version": "7.29.12",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/babel/babel.git",
+      "directory": "packages/babel-parser"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_babel_parser-7.29.12/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@babel/types",
+    "version": "7.29.11",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/babel/babel.git",
+      "directory": "packages/babel-types"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_babel_types-7.29.11/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@esbuild/win32-x64",
+    "version": "0.28.2",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/evanw/esbuild.git"
+    },
+    "notices": []
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@jridgewell/sourcemap-codec",
+    "version": "1.6.0",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/jridgewell/sourcemaps.git",
+      "directory": "packages/sourcemap-codec"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_jridgewell_sourcemap-codec-1.6.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@playwright/test",
+    "version": "1.64.1",
+    "declared_license": "Apache-2.0",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/microsoft/playwright.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_playwright_test-1.64.1/LICENSE",
+      "licenses/dependencies/npm-_playwright_test-1.64.1/NOTICE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@rolldown/pluginutils",
+    "version": "1.0.1",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/rolldown/plugins.git",
+      "directory": "packages/pluginutils"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_rolldown_pluginutils-1.0.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@rollup/rollup-win32-x64-gnu",
+    "version": "4.67.4",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/rollup/rollup.git"
+    },
+    "notices": []
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@rollup/rollup-win32-x64-msvc",
+    "version": "4.67.4",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/rollup/rollup.git"
+    },
+    "notices": []
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@tauri-apps/api",
+    "version": "2.12.4",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/tauri-apps/tauri.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_tauri-apps_api-2.12.4/LICENSE-APACHE-2.0",
+      "licenses/dependencies/npm-_tauri-apps_api-2.12.4/LICENSE-MIT",
+      "licenses/dependencies/npm-_tauri-apps_api-2.12.4/LICENSE.spdx"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@tauri-apps/cli",
+    "version": "2.12.4",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/tauri-apps/tauri.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_tauri-apps_cli-2.12.4/LICENSE-APACHE-2.0",
+      "licenses/dependencies/npm-_tauri-apps_cli-2.12.4/LICENSE-MIT"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@tauri-apps/cli-win32-x64-msvc",
+    "version": "2.12.4",
+    "declared_license": "Apache-2.0 OR MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/tauri-apps/tauri.git"
+    },
+    "notices": []
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@tauri-apps/plugin-dialog",
+    "version": "2.8.4",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/tauri-apps/plugins-workspace",
+    "notices": [
+      "licenses/dependencies/npm-_tauri-apps_plugin-dialog-2.8.4/LICENSE.spdx"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@tauri-apps/plugin-notification",
+    "version": "2.8.0",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/tauri-apps/plugins-workspace",
+    "notices": [
+      "licenses/dependencies/npm-_tauri-apps_plugin-notification-2.8.0/LICENSE.spdx"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@tauri-apps/plugin-opener",
+    "version": "2.7.2",
+    "declared_license": "MIT OR Apache-2.0",
+    "repository": "https://github.com/tauri-apps/plugins-workspace",
+    "notices": [
+      "licenses/dependencies/npm-_tauri-apps_plugin-opener-2.7.2/LICENSE.spdx"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@types/estree",
+    "version": "1.0.10",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+      "directory": "types/estree"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_types_estree-1.0.10/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@vitejs/plugin-vue",
+    "version": "6.0.10",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vitejs/vite-plugin-vue.git",
+      "directory": "packages/plugin-vue"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_vitejs_plugin-vue-6.0.10/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@volar/language-core",
+    "version": "2.4.30",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/volarjs/volar.js.git",
+      "directory": "packages/language-core"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_volar_language-core-2.4.30/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@volar/language-service",
+    "version": "2.4.30",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/volarjs/volar.js.git",
+      "directory": "packages/language-service"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_volar_language-service-2.4.30/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@volar/source-map",
+    "version": "2.4.30",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/volarjs/volar.js.git",
+      "directory": "packages/source-map"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_volar_source-map-2.4.30/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@volar/typescript",
+    "version": "2.4.30",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/volarjs/volar.js.git",
+      "directory": "packages/typescript"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_volar_typescript-2.4.30/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@vue/compiler-core",
+    "version": "3.5.44",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vuejs/core.git",
+      "directory": "packages/compiler-core"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_vue_compiler-core-3.5.44/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@vue/compiler-dom",
+    "version": "3.5.44",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vuejs/core.git",
+      "directory": "packages/compiler-dom"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_vue_compiler-dom-3.5.44/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@vue/compiler-sfc",
+    "version": "3.5.44",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vuejs/core.git",
+      "directory": "packages/compiler-sfc"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_vue_compiler-sfc-3.5.44/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@vue/compiler-ssr",
+    "version": "3.5.44",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vuejs/core.git",
+      "directory": "packages/compiler-ssr"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_vue_compiler-ssr-3.5.44/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@vue/language-core",
+    "version": "3.3.14",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/vuejs/language-tools.git",
+      "directory": "packages/language-core"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_vue_language-core-3.3.14/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@vue/reactivity",
+    "version": "3.5.44",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vuejs/core.git",
+      "directory": "packages/reactivity"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_vue_reactivity-3.5.44/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@vue/runtime-core",
+    "version": "3.5.44",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vuejs/core.git",
+      "directory": "packages/runtime-core"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_vue_runtime-core-3.5.44/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@vue/runtime-dom",
+    "version": "3.5.44",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vuejs/core.git",
+      "directory": "packages/runtime-dom"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_vue_runtime-dom-3.5.44/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@vue/server-renderer",
+    "version": "3.5.44",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vuejs/core.git",
+      "directory": "packages/server-renderer"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_vue_server-renderer-3.5.44/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "@vue/shared",
+    "version": "3.5.44",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vuejs/core.git",
+      "directory": "packages/shared"
+    },
+    "notices": [
+      "licenses/dependencies/npm-_vue_shared-3.5.44/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "alien-signals",
+    "version": "3.2.1",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/stackblitz/alien-signals.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-alien-signals-3.2.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "csstype",
+    "version": "3.2.3",
+    "declared_license": "MIT",
+    "repository": "https://github.com/frenic/csstype",
+    "notices": [
+      "licenses/dependencies/npm-csstype-3.2.3/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "entities",
+    "version": "7.0.1",
+    "declared_license": "BSD-2-Clause",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/fb55/entities.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-entities-7.0.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "esbuild",
+    "version": "0.28.2",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/evanw/esbuild.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-esbuild-0.28.2/LICENSE.md"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "estree-walker",
+    "version": "2.0.2",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Rich-Harris/estree-walker"
+    },
+    "notices": [
+      "licenses/dependencies/npm-estree-walker-2.0.2/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "fdir",
+    "version": "6.5.0",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/thecodrr/fdir.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-fdir-6.5.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "hls.js",
+    "version": "1.7.4",
+    "declared_license": "Apache-2.0",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/video-dev/hls.js"
+    },
+    "notices": [
+      "licenses/dependencies/npm-hls.js-1.7.4/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "lucide-vue-next",
+    "version": "0.468.0",
+    "declared_license": "ISC",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/lucide-icons/lucide.git",
+      "directory": "packages/lucide-vue-next"
+    },
+    "notices": [
+      "licenses/dependencies/npm-lucide-vue-next-0.468.0/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "magic-string",
+    "version": "0.30.21",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Rich-Harris/magic-string.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-magic-string-0.30.21/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "muggle-string",
+    "version": "0.4.1",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/johnsoncodehk/muggle-string.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-muggle-string-0.4.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "nanoid",
+    "version": "3.3.20",
+    "declared_license": "MIT",
+    "repository": "ai/nanoid",
+    "notices": [
+      "licenses/dependencies/npm-nanoid-3.3.20/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "path-browserify",
+    "version": "1.0.1",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/browserify/path-browserify.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-path-browserify-1.0.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "picocolors",
+    "version": "1.1.1",
+    "declared_license": "ISC",
+    "repository": "alexeyraspopov/picocolors",
+    "notices": [
+      "licenses/dependencies/npm-picocolors-1.1.1/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "picomatch",
+    "version": "4.0.7",
+    "declared_license": "MIT",
+    "repository": "micromatch/picomatch",
+    "notices": [
+      "licenses/dependencies/npm-picomatch-4.0.7/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "playwright",
+    "version": "1.64.1",
+    "declared_license": "Apache-2.0",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/microsoft/playwright.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-playwright-1.64.1/LICENSE",
+      "licenses/dependencies/npm-playwright-1.64.1/NOTICE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "playwright-core",
+    "version": "1.64.1",
+    "declared_license": "Apache-2.0",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/microsoft/playwright.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-playwright-core-1.64.1/LICENSE",
+      "licenses/dependencies/npm-playwright-core-1.64.1/NOTICE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "postcss",
+    "version": "8.5.32",
+    "declared_license": "MIT",
+    "repository": "postcss/postcss",
+    "notices": [
+      "licenses/dependencies/npm-postcss-8.5.32/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "prettier",
+    "version": "3.9.10",
+    "declared_license": "MIT",
+    "repository": "prettier/prettier",
+    "notices": [
+      "licenses/dependencies/npm-prettier-3.9.10/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "rollup",
+    "version": "4.67.4",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/rollup/rollup.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-rollup-4.67.4/LICENSE.md"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "source-map-js",
+    "version": "1.2.2",
+    "declared_license": "BSD-3-Clause",
+    "repository": "7rulnik/source-map-js",
+    "notices": [
+      "licenses/dependencies/npm-source-map-js-1.2.2/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "tinyglobby",
+    "version": "0.2.17",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/SuperchupuDev/tinyglobby.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-tinyglobby-0.2.17/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "typescript",
+    "version": "5.9.3",
+    "declared_license": "Apache-2.0",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/microsoft/TypeScript.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-typescript-5.9.3/LICENSE.txt"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "vite",
+    "version": "7.3.7",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vitejs/vite.git",
+      "directory": "packages/vite"
+    },
+    "notices": [
+      "licenses/dependencies/npm-vite-7.3.7/LICENSE.md"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "vscode-jsonrpc",
+    "version": "10.0.0",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Microsoft/vscode-languageserver-node.git",
+      "directory": "jsonrpc"
+    },
+    "notices": [
+      "licenses/dependencies/npm-vscode-jsonrpc-10.0.0/License.txt"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "vscode-languageserver-protocol",
+    "version": "3.18.5",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Microsoft/vscode-languageserver-node.git",
+      "directory": "protocol"
+    },
+    "notices": [
+      "licenses/dependencies/npm-vscode-languageserver-protocol-3.18.5/License.txt"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "vscode-languageserver-textdocument",
+    "version": "1.0.16",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Microsoft/vscode-languageserver-node.git",
+      "directory": "textDocument"
+    },
+    "notices": [
+      "licenses/dependencies/npm-vscode-languageserver-textdocument-1.0.16/License.txt"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "vscode-languageserver-types",
+    "version": "3.18.5",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Microsoft/vscode-languageserver-node.git",
+      "directory": "types"
+    },
+    "notices": [
+      "licenses/dependencies/npm-vscode-languageserver-types-3.18.5/License.txt"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "vscode-uri",
+    "version": "3.2.0",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/microsoft/vscode-uri.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-vscode-uri-3.2.0/LICENSE.md"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "vue",
+    "version": "3.5.44",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vuejs/core.git"
+    },
+    "notices": [
+      "licenses/dependencies/npm-vue-3.5.44/LICENSE"
+    ]
+  },
+  {
+    "ecosystem": "npm",
+    "name": "vue-tsc",
+    "version": "3.3.14",
+    "declared_license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/vuejs/language-tools.git",
+      "directory": "packages/tsc"
+    },
+    "notices": [
+      "licenses/dependencies/npm-vue-tsc-3.3.14/LICENSE"
+    ]
+  }
+]

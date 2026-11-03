@@ -129,6 +129,14 @@ pub async fn build(net: &Network, input: &TaskInput, cancel: &CancellationToken)
         return Err(AppError::new("LIMIT_EXCEEDED", "所选清单超过任务资源限制"));
     }
     for t in &tracks {
+        if t.kind == "audio"
+            && (t.playlist.duration() - duration).abs() > 1.0f64.max(duration * 0.005)
+        {
+            return Err(AppError::new(
+                "OUTPUT_INCOMPATIBLE",
+                "所选音轨与视频时长明显不匹配，请选择匹配的音轨或纯视频",
+            ));
+        }
         if t.playlist.master || !t.playlist.ended {
             return Err(AppError::new(
                 "HLS_UNSUPPORTED",

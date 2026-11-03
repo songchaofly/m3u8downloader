@@ -1,0 +1,9 @@
+test_h264_aac_transcode (__main__.Acceptance.test_h264_aac_transcode) ... ok
+test_video_only_removes_audio (__main__.Acceptance.test_video_only_removes_audio) ... ok
+test_subtitles_in_mkv_and_ts_sidecar (__main__.Acceptance.test_subtitles_in_mkv_and_ts_sidecar) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 5.173s
+
+OK
+C:\Users\csong\AppData\Local\Temp\m3u8-acceptance-qsph5kkn\fixtures

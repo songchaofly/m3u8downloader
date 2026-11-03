@@ -1,0 +1,4 @@
+# Preserve upstream license copies and captured command output verbatim.
+# Application source remains subject to normal whitespace checks.
+licenses/dependencies/** -text -whitespace
+docs/validation/*.txt -text -whitespace

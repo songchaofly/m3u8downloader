@@ -1,6 +1,7 @@
 pub mod crypto;
 pub mod engine;
 pub mod error;
+pub mod filesystem;
 pub mod media;
 pub mod model;
 pub mod network;

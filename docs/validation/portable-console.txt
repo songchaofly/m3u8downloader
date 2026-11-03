@@ -1,0 +1,37 @@
+{
+  "startup_ms": 733,
+  "pause_ms": 44,
+  "cancel_ms": 28,
+  "preview_first_frame_ms": 1461,
+  "result": "passed",
+  "tests": [
+    "native form download + events",
+    "authenticated AES preview + seek",
+    "local TS asset playback",
+    "segment/attempt details; pause, duplicate start, cancel and delete",
+    "missing segments require confirmation before output"
+  ],
+  "data_dir": "D:\\work\\git_all\\m3u8downloader\\.local\\native-state-1793703783797"
+}
+{
+  "directory": "D:\\work\\git_all\\m3u8downloader\\release\\M3U8-Studio-0.1.0-windows-x64-portable",
+  "passed": true,
+  "native": {
+    "startup_ms": 733,
+    "pause_ms": 44,
+    "cancel_ms": 28,
+    "preview_first_frame_ms": 1461,
+    "result": "passed",
+    "tests": [
+      "native form download + events",
+      "authenticated AES preview + seek",
+      "local TS asset playback",
+      "segment/attempt details; pause, duplicate start, cancel and delete",
+      "missing segments require confirmation before output"
+    ],
+    "data_dir": "D:\\work\\git_all\\m3u8downloader\\.local\\native-state-1793703783797"
+  },
+  "cli_output": "D:\\work\\git_all\\m3u8downloader\\.local\\portable-cli-a2491ae9-ea8a-4c39-837c-73fd725a6399\\\u4e2d\u6587 \u8def\u5f84\\\u8f93\u51fa.mp4",
+  "cli_state": "completed",
+  "bundled_tools_without_system_ffmpeg": true
+}

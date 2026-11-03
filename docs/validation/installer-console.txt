@@ -1,0 +1,39 @@
+{
+  "startup_ms": 735,
+  "pause_ms": 40,
+  "cancel_ms": 29,
+  "preview_first_frame_ms": 1437,
+  "result": "passed",
+  "tests": [
+    "native form download + events",
+    "authenticated AES preview + seek",
+    "local TS asset playback",
+    "segment/attempt details; pause, duplicate start, cancel and delete",
+    "missing segments require confirmation before output"
+  ],
+  "data_dir": "D:\\work\\git_all\\m3u8downloader\\.local\\native-state-1793703716430"
+}
+{
+  "installer": "D:\\work\\git_all\\m3u8downloader\\target\\release\\bundle\\nsis\\M3U8 Studio_0.1.0_x64-setup.exe",
+  "install_dir": "D:\\work\\git_all\\m3u8downloader\\.local\\install-check-01ba09dc-f91b-4a24-9907-60f75f7a2dec\\\u4e2d\u6587 \u5b89\u88c5",
+  "install_exit": 0,
+  "native": {
+    "startup_ms": 735,
+    "pause_ms": 40,
+    "cancel_ms": 29,
+    "preview_first_frame_ms": 1437,
+    "result": "passed",
+    "tests": [
+      "native form download + events",
+      "authenticated AES preview + seek",
+      "local TS asset playback",
+      "segment/attempt details; pause, duplicate start, cancel and delete",
+      "missing segments require confirmation before output"
+    ],
+    "data_dir": "D:\\work\\git_all\\m3u8downloader\\.local\\native-state-1793703716430"
+  },
+  "bundled_tools_without_system_ffmpeg": true,
+  "uninstall_exit": 0,
+  "application_removed": true,
+  "passed": true
+}

@@ -1,0 +1,88 @@
+{
+  "fixture": {
+    "url": "http://127.0.0.1:54766",
+    "segments": 1000,
+    "segment_bytes": 2097140
+  },
+  "automation": "Minimal CDP Runtime.evaluate; no Playwright injection; loopback debug endpoint enabled only by test",
+  "startup_ms": [
+    682.9637,
+    684.1985,
+    656.4926,
+    919.8485999999998,
+    1014.9254999999998
+  ],
+  "baseline_ms": [
+    8273.0131,
+    7452.699900000003,
+    7457.198699999994
+  ],
+  "application_ms": [
+    8987.0834,
+    10425.907599999999,
+    10159.724300000002
+  ],
+  "feedback_ms": "raw samples in performance.json",
+  "memory_reports": [
+    {
+      "system": "Windows-11-10.0.26200-SP0",
+      "physical_cores": 4,
+      "logical_cores": 8,
+      "memory_bytes": 16969424896,
+      "process_peaks": {
+        "m3u8-studio.exe:main:11880": 54956032,
+        "msedgewebview2.exe:main:13148": 168620032,
+        "msedgewebview2.exe:--type=crashpad-handler:22352": 14991360,
+        "msedgewebview2.exe:--type=gpu-process:17176": 126488576,
+        "msedgewebview2.exe:--type=utility:8972": 42147840,
+        "msedgewebview2.exe:--type=utility:3976": 23879680,
+        "msedgewebview2.exe:--type=renderer:13260": 102359040
+      },
+      "peak_gui_core_bytes": 522776576,
+      "peak_media_bytes": 0
+    },
+    {
+      "system": "Windows-11-10.0.26200-SP0",
+      "physical_cores": 4,
+      "logical_cores": 8,
+      "memory_bytes": 16969424896,
+      "process_peaks": {
+        "m3u8-studio.exe:main:11880": 58671104,
+        "msedgewebview2.exe:main:13148": 169431040,
+        "msedgewebview2.exe:--type=crashpad-handler:22352": 24170496,
+        "msedgewebview2.exe:--type=gpu-process:17176": 122101760,
+        "msedgewebview2.exe:--type=utility:8972": 42147840,
+        "msedgewebview2.exe:--type=utility:3976": 23879680,
+        "msedgewebview2.exe:--type=renderer:13260": 125255680
+      },
+      "peak_gui_core_bytes": 557846528,
+      "peak_media_bytes": 0
+    },
+    {
+      "system": "Windows-11-10.0.26200-SP0",
+      "physical_cores": 4,
+      "logical_cores": 8,
+      "memory_bytes": 16969424896,
+      "process_peaks": {
+        "m3u8-studio.exe:main:11880": 58552320,
+        "msedgewebview2.exe:main:13148": 169365504,
+        "msedgewebview2.exe:--type=crashpad-handler:22352": 24162304,
+        "msedgewebview2.exe:--type=gpu-process:17176": 120803328,
+        "msedgewebview2.exe:--type=utility:8972": 42160128,
+        "msedgewebview2.exe:--type=utility:3976": 23879680,
+        "msedgewebview2.exe:--type=renderer:13260": 107405312
+      },
+      "peak_gui_core_bytes": 545030144,
+      "peak_media_bytes": 0
+    }
+  ],
+  "throughput_ratio": 0.7339961675928541,
+  "feedback_p95_ms": 18.599999997764826,
+  "peak_gui_core_bytes": 557846528,
+  "passed": {
+    "startup": true,
+    "throughput": false,
+    "feedback": true,
+    "memory": false
+  }
+}

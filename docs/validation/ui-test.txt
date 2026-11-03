@@ -1,0 +1,15 @@
+
+> m3u8-studio@0.1.0 test:e2e
+> playwright test
+
+[WebServer] (node:5320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:10800) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\ui\workspace.spec.ts:3:1 › desktop workspace renders and new task form validates without runtime errors (15.4s)
+  ok 2 tests\ui\workspace.spec.ts:14:1 › empty workspace has clear actions and supports dark theme (969ms)
+
+  2 passed (22.3s)

@@ -1,0 +1,38 @@
+   Compiling m3u8-core v0.1.0 (D:\work\git_all\m3u8downloader\crates\core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.28s
+     Running unittests src\lib.rs (target\debug\deps\m3u8_core-5df7799ef3dc7619.exe)
+
+running 1 test
+test engine::concurrency_tests::settings_keep_total_budget_while_preview_holds_permits ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests\crypto.rs (target\debug\deps\crypto-52fe44acc46ed087.exe)
+
+running 2 tests
+test iv_uses_media_sequence_in_big_endian ... ok
+test invalid_keys_and_padding_fail_before_success ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\persistence.rs (target\debug\deps\persistence-3b1609a60010fd1b.exe)
+
+running 5 tests
+test task_paths_and_output_names_cannot_escape ... ok
+test config_replacement_never_exposes_a_missing_destination ... ok
+test new_versions_are_never_reinitialized ... ok
+test iv_only_override_requires_reentry_after_restart ... ok
+test concurrent_segment_receipts_are_durable_on_reopen ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+
+     Running tests\playlist.rs (target\debug\deps\playlist-fa1b4b10091a4fd2.exe)
+
+running 4 tests
+test preserves_media_sequence_and_resolves_against_the_final_playlist_url ... ok
+test rejects_unsafe_or_unsupported_playlists ... ok
+test handles_quoted_codecs_and_audio_groups ... ok
+test keeps_key_rotations_ranges_and_discontinuities ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -27,8 +27,14 @@ struct PrivateTask {
     input: TaskInput,
     plan: Option<Plan>,
 }
+struct PendingSegment {
+    task: String,
+    record: SegmentRecord,
+    done: std::sync::mpsc::Sender<Result<()>>,
+}
 pub struct Store {
     connection: Mutex<Connection>,
+    pending_segments: Mutex<Vec<PendingSegment>>,
     vault: Option<Zeroizing<[u8; 32]>>,
     pub root: PathBuf,
 }
@@ -55,6 +61,7 @@ impl Store {
         let vault = load_vault().ok().map(Zeroizing::new);
         Ok(Self {
             connection: Mutex::new(connection),
+            pending_segments: Mutex::new(Vec::new()),
             vault,
             root: root.into(),
         })
@@ -165,16 +172,40 @@ impl Store {
         }
     }
     pub fn commit_segment(&self, task: &str, record: &SegmentRecord) -> Result<()> {
-        self.connection.lock().unwrap().execute(
-            "INSERT OR REPLACE INTO segments(task,track,idx,record) VALUES(?1,?2,?3,?4)",
-            params![
-                task,
-                record.track,
-                record.index,
-                serde_json::to_string(record)?
-            ],
-        )?;
-        Ok(())
+        let (done, receipt) = std::sync::mpsc::channel();
+        let leader = {
+            let mut pending = self.pending_segments.lock().unwrap();
+            let leader = pending.is_empty();
+            pending.push(PendingSegment {
+                task: task.into(),
+                record: record.clone(),
+                done,
+            });
+            leader
+        };
+        if leader {
+            // Called by bounded blocking workers. Coalesce adjacent completions without
+            // weakening FULL durability; no caller returns success before the commit.
+            std::thread::sleep(std::time::Duration::from_millis(2));
+            let batch = std::mem::take(&mut *self.pending_segments.lock().unwrap());
+            let result = (|| -> Result<()> {
+                let mut db = self.connection.lock().unwrap();
+                let tx = db.transaction()?;
+                for pending in &batch {
+                    let record = &pending.record;
+                    tx.execute("INSERT OR REPLACE INTO segments(task,track,idx,record) VALUES(?1,?2,?3,?4)",
+                        params![pending.task, record.track, record.index, serde_json::to_string(record)?])?;
+                }
+                tx.commit()?;
+                Ok(())
+            })();
+            for pending in batch {
+                let _ = pending.done.send(result.clone());
+            }
+        }
+        receipt
+            .recv()
+            .map_err(|_| AppError::new("STORE_FAILED", "分片事务没有返回提交结果"))?
     }
     pub fn remove(&self, id: &str) -> Result<()> {
         let mut db = self.connection.lock().unwrap();
@@ -192,10 +223,25 @@ impl Store {
             .execute("DELETE FROM segments WHERE task=?1", [id])?;
         Ok(())
     }
+    pub fn attempts(&self, id: &str) -> Result<Vec<TaskView>> {
+        let db = self.connection.lock().unwrap();
+        let mut statement =
+            db.prepare("SELECT view FROM attempts WHERE task=?1 ORDER BY rowid DESC LIMIT 10")?;
+        let values = statement.query_map([id], |row| row.get::<_, String>(0))?;
+        let mut result = Vec::new();
+        for value in values {
+            result.push(serde_json::from_str(&value?)?);
+        }
+        Ok(result)
+    }
     pub fn settings(&self) -> Result<Settings> {
         let p = self.root.join("settings.json");
         if p.exists() {
-            Ok(serde_json::from_slice(&std::fs::read(p)?)?)
+            let settings: Settings = serde_json::from_slice(&std::fs::read(p)?)?;
+            if settings.schema_version != 1 {
+                return Err(AppError::new("MIGRATION_FAILED", "配置文件来自不兼容版本"));
+            }
+            Ok(settings)
         } else {
             Ok(Settings::default())
         }
@@ -242,29 +288,5 @@ fn load_vault() -> Result<[u8; 32]> {
     }
 }
 pub fn atomic_write(path: &Path, bytes: &[u8]) -> Result<()> {
-    use std::io::Write;
-    let tmp = path.with_extension(format!("{}.part", uuid::Uuid::new_v4()));
-    let mut f = std::fs::OpenOptions::new()
-        .create_new(true)
-        .write(true)
-        .open(&tmp)?;
-    f.write_all(bytes)?;
-    f.sync_all()?;
-    drop(f);
-    if path.exists() {
-        // Configuration replacement retains a backup until the new file is committed.
-        let backup = path.with_extension("bak");
-        if backup.exists() {
-            std::fs::remove_file(&backup)?;
-        }
-        std::fs::rename(path, &backup)?;
-        if let Err(e) = std::fs::rename(&tmp, path) {
-            let _ = std::fs::rename(&backup, path);
-            return Err(e.into());
-        }
-        let _ = std::fs::remove_file(backup);
-    } else {
-        std::fs::rename(tmp, path)?;
-    }
-    Ok(())
+    crate::filesystem::atomic_write(path, bytes)
 }

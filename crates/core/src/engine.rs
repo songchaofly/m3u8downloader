@@ -9,7 +9,7 @@ use futures_util::{stream, StreamExt};
 use serde::{Deserialize, Serialize};
 use std::{
     collections::{BTreeMap, HashMap},
-    path::{Path, PathBuf},
+    path::Path,
     sync::{Arc, Mutex, RwLock},
     time::{Duration, Instant},
 };
@@ -23,6 +23,7 @@ struct Task {
     plan: Option<Plan>,
     cancel: CancellationToken,
     running: bool,
+    credentials_available: bool,
     stop_state: String,
     last_event: Instant,
 }
@@ -35,6 +36,7 @@ pub struct Engine {
     processing: Arc<Semaphore>,
     events: broadcast::Sender<TaskView>,
     previews: Mutex<HashMap<String, PreviewSession>>,
+    local_previews: Mutex<HashMap<String, (CancellationToken, tempfile::TempDir)>>,
     _lock: std::fs::File,
 }
 struct PreviewSession {
@@ -43,6 +45,7 @@ struct PreviewSession {
     resources: HashMap<String, PreviewResource>,
     input: TaskInput,
     created: Instant,
+    keys: Arc<HashMap<String, Zeroizing<[u8; 16]>>>,
 }
 #[derive(Clone)]
 struct PreviewResource {
@@ -51,6 +54,7 @@ struct PreviewResource {
     key: Option<crate::KeyContext>,
     sequence: u64,
     kind: String,
+    map: Option<String>,
 }
 #[derive(Serialize, Deserialize)]
 pub struct PreviewInfo {
@@ -84,6 +88,25 @@ impl Engine {
         if settings.cache_dir.is_empty() {
             settings.cache_dir = root.join("cache").to_string_lossy().into_owned();
         }
+        if let Ok(executable) = std::env::current_exe() {
+            if let Some(parent) = executable.parent() {
+                for (configured, name) in [
+                    (&mut settings.ffmpeg, "ffmpeg"),
+                    (&mut settings.ffprobe, "ffprobe"),
+                ] {
+                    let binary = parent
+                        .join("runtime")
+                        .join(format!("{name}{}", std::env::consts::EXE_SUFFIX));
+                    let normalized = configured.replace('\\', "/");
+                    if binary.is_file()
+                        && (configured == name
+                            || normalized.ends_with(&format!("runtime/{name}.exe")))
+                    {
+                        *configured = binary.to_string_lossy().into_owned();
+                    }
+                }
+            }
+        }
         std::fs::create_dir_all(&settings.cache_dir)?;
         std::fs::create_dir_all(&settings.output_dir)?;
         let tasks = store
@@ -91,6 +114,7 @@ impl Engine {
             .into_iter()
             .map(|(view, input, plan)| {
                 let id = view.id.clone();
+                let credentials_available = !view.needs_credentials;
                 (
                     id,
                     Arc::new(Mutex::new(Task {
@@ -99,6 +123,7 @@ impl Engine {
                         plan,
                         cancel: CancellationToken::new(),
                         running: false,
+                        credentials_available,
                         stop_state: "paused".into(),
                         last_event: Instant::now(),
                     })),
@@ -106,7 +131,7 @@ impl Engine {
             })
             .collect();
         let (events, _) = broadcast::channel(256);
-        Ok(Arc::new(Self {
+        let engine = Arc::new(Self {
             global: Arc::new(Semaphore::new(settings.max_requests.clamp(1, 64))),
             slots: Arc::new(Semaphore::new(settings.max_tasks.clamp(1, 8))),
             processing: Arc::new(Semaphore::new(settings.max_processing.clamp(1, 4))),
@@ -115,8 +140,13 @@ impl Engine {
             tasks: Mutex::new(tasks),
             events,
             previews: Mutex::new(HashMap::new()),
+            local_previews: Mutex::new(HashMap::new()),
             _lock: lock,
-        }))
+        });
+        if engine.settings().history_days > 0 {
+            engine.prune_history(engine.settings().history_days)?;
+        }
+        Ok(engine)
     }
     fn task(&self, id: &str) -> Result<Arc<Mutex<Task>>> {
         self.tasks
@@ -147,6 +177,9 @@ impl Engine {
         if !(1..=8).contains(&new.max_tasks)
             || !(1..=64).contains(&new.max_requests)
             || !(1..=4).contains(&new.max_processing)
+            || !["DEBUG", "INFO", "WARN", "ERROR"].contains(&new.log_level.as_str())
+            || new.schema_version != 1
+            || new.history_days > 36500
         {
             return Err(AppError::new("INPUT_INVALID", "并发配置超出范围"));
         }
@@ -156,7 +189,8 @@ impl Engine {
             None,
             self.global.clone(),
         )?;
-        if self.list().iter().any(|t| {
+        let tasks = self.list();
+        if tasks.iter().any(|t| {
             ["queued", "parsing", "downloading", "processing", "pausing"]
                 .contains(&t.state.as_str())
         }) {
@@ -164,9 +198,10 @@ impl Engine {
         }
         std::fs::create_dir_all(&new.output_dir)?;
         std::fs::create_dir_all(&new.cache_dir)?;
-        let old = self.settings();
+        let mut settings = self.settings.write().unwrap();
+        let old = settings.clone();
         if new.cache_dir != old.cache_dir
-            && self.list().iter().any(|t| {
+            && tasks.iter().any(|t| {
                 !["completed", "completed_with_gaps", "cancelled"].contains(&t.state.as_str())
             })
         {
@@ -175,12 +210,128 @@ impl Engine {
                 "未完成任务仍引用原缓存目录，请完成或删除这些任务后再修改",
             ));
         }
-        resize(&self.global, new.max_requests);
-        resize(&self.slots, new.max_tasks);
-        resize(&self.processing, new.max_processing);
+        let changes = [
+            (&self.global, old.max_requests, new.max_requests),
+            (&self.slots, old.max_tasks, new.max_tasks),
+            (&self.processing, old.max_processing, new.max_processing),
+        ];
+        let mut reserved = Vec::new();
+        for (semaphore, old, new) in changes {
+            if old != new {
+                let permit = semaphore
+                    .clone()
+                    .try_acquire_many_owned(old as u32)
+                    .map_err(|_| {
+                        AppError::new(
+                            "TASK_BUSY",
+                            "请先停止使用当前并发额度的任务、解析或预览，再修改并发设置",
+                        )
+                    })?;
+                reserved.push((semaphore, permit, new));
+            }
+        }
         self.store.save_settings(&new)?;
-        *self.settings.write().unwrap() = new;
+        for (semaphore, permit, count) in reserved {
+            permit.forget();
+            semaphore.add_permits(count);
+        }
+        *settings = new;
         Ok(())
+    }
+    pub fn duplicate_sources(&self, sources: &[String]) -> Vec<String> {
+        let tasks = self.tasks.lock().unwrap();
+        let mut seen = tasks
+            .values()
+            .filter_map(|t| t.lock().unwrap().input.as_ref().map(|i| i.source.clone()))
+            .collect::<std::collections::HashSet<_>>();
+        sources
+            .iter()
+            .filter(|source| !seen.insert((*source).clone()))
+            .cloned()
+            .collect()
+    }
+    pub async fn test_connection(&self, input: &TaskInput) -> Result<serde_json::Value> {
+        let mut config = input.network.clone();
+        config.retries = 0;
+        config.request_timeout = 20;
+        let net = Network::new(
+            config,
+            &input.source,
+            input.local_root.as_deref(),
+            self.global.clone(),
+        )?;
+        let start = Instant::now();
+        let source = crate::playlist::source_url(&input.source)?;
+        let resource = net
+            .get(
+                source.as_str(),
+                None,
+                10 * 1024 * 1024,
+                &CancellationToken::new(),
+            )
+            .await?;
+        Ok(
+            serde_json::json!({"elapsed_ms":start.elapsed().as_millis(),"bytes":resource.bytes.len(),"target":crate::network::display_url(&resource.final_url)}),
+        )
+    }
+    pub fn task_details(&self, id: &str, offset: usize, limit: usize) -> Result<serde_json::Value> {
+        let task = self.task(id)?;
+        let task = task.lock().unwrap();
+        let mut segments = Vec::new();
+        let mut total = 0;
+        if let Some(plan) = &task.plan {
+            for (ti, track) in plan.tracks.iter().enumerate() {
+                for segment in &track.playlist.segments {
+                    let pos = total;
+                    total += 1;
+                    if pos < offset || segments.len() >= limit.min(100) {
+                        continue;
+                    }
+                    let resource = format!("{ti}:{}", segment.index);
+                    let record = self.store.segment(id, ti, segment.index)?;
+                    let state = if task.view.missing.contains(&resource) {
+                        "skipped"
+                    } else if task
+                        .view
+                        .error
+                        .as_ref()
+                        .and_then(|e| e.resource_id.as_ref())
+                        == Some(&resource)
+                    {
+                        "failed"
+                    } else if record.is_some() {
+                        "available"
+                    } else {
+                        "pending"
+                    };
+                    segments.push(serde_json::json!({"resource":resource,"track":track.kind,"sequence":segment.sequence,"duration":segment.duration,"state":state,"bytes":record.map(|r|r.bytes).unwrap_or(0),"source":crate::network::display_url(&segment.uri),"context":segment.key.as_ref().map(|k|format!("{ti}:{}",k.id)),"iv":segment.key.as_ref().map(|k|if k.iv.is_some(){"explicit"}else{"sequence"}),"discontinuity":segment.discontinuity,"range":segment.range}));
+                }
+            }
+        }
+        Ok(
+            serde_json::json!({"total":total,"segments":segments,"attempts":self.store.attempts(id)?}),
+        )
+    }
+    pub fn prune_history(&self, days: u64) -> Result<usize> {
+        if days > 36500 {
+            return Err(AppError::new("INPUT_INVALID", "历史保留期超出范围"));
+        }
+        let mut removed = 0;
+        for view in self.list() {
+            if !["completed", "completed_with_gaps", "cancelled"].contains(&view.state.as_str()) {
+                continue;
+            }
+            let age = chrono::DateTime::parse_from_rfc3339(&view.created_at)
+                .map(|v| (chrono::Utc::now() - v.with_timezone(&chrono::Utc)).num_days())
+                .unwrap_or(0);
+            if days == 0 || age >= days as i64 {
+                self.clear_cache(&view.id)?;
+                self.store.remove(&view.id)?;
+                self.tasks.lock().unwrap().remove(&view.id);
+                removed += 1;
+            }
+        }
+        Ok(removed)
     }
     pub async fn inspect(&self, input: &TaskInput) -> Result<Playlist> {
         let n = Network::new(
@@ -241,6 +392,7 @@ impl Engine {
             event_seq: 0,
             missing: Vec::new(),
             needs_credentials: needs_credentials(&input) || !self.store.secure_available(),
+            processing_ready: false,
         };
         self.store.save(&view, Some(&input), None)?;
         self.tasks.lock().unwrap().insert(
@@ -251,6 +403,7 @@ impl Engine {
                 plan: None,
                 cancel: CancellationToken::new(),
                 running: false,
+                credentials_available: true,
                 stop_state: "paused".into(),
                 last_event: Instant::now(),
             })),
@@ -262,7 +415,21 @@ impl Engine {
         Ok(self.task(id)?.lock().unwrap().input.clone())
     }
     pub fn update_input(&self, id: &str, input: TaskInput) -> Result<()> {
+        self.update_options(id, input, true)
+    }
+    pub fn update_options(
+        &self,
+        id: &str,
+        input: TaskInput,
+        credentials_supplied: bool,
+    ) -> Result<()> {
         media::validate_input(&input)?;
+        if input.remember && !self.store.secure_available() {
+            return Err(AppError::new(
+                "CREDENTIAL_STORE_UNAVAILABLE",
+                "系统安全存储不可用，不能记住凭证",
+            ));
+        }
         Network::new(
             input.network.clone(),
             &input.source,
@@ -285,10 +452,31 @@ impl Engine {
                 || old.video_only != input.video_only
         });
         if identity_changed {
-            t.plan = None;
-            self.store.clear_segments(id)?;
+            let only_remove_subtitle = t.input.as_ref().is_some_and(|old| {
+                old.source == input.source
+                    && old.variant == input.variant
+                    && old.audio == input.audio
+                    && old.video_only == input.video_only
+                    && old.subtitle.is_some()
+                    && input.subtitle.is_none()
+            });
+            if only_remove_subtitle && t.plan.is_some() {
+                t.plan
+                    .as_mut()
+                    .unwrap()
+                    .tracks
+                    .retain(|track| track.kind != "subtitle");
+                t.view.processing_ready = true;
+            } else {
+                t.plan = None;
+                t.view.processing_ready = false;
+            }
         }
-        t.view.needs_credentials = needs_credentials(&input) || !self.store.secure_available();
+        t.view.title = media::safe_name(&input.title);
+        t.view.source_display = crate::network::display_url(&input.source);
+        t.credentials_available |= credentials_supplied;
+        t.view.needs_credentials =
+            !t.credentials_available || needs_credentials(&input) || !self.store.secure_available();
         t.input = Some(input);
         self.store
             .save(&t.view, t.input.as_ref(), t.plan.as_ref())?;
@@ -310,15 +498,7 @@ impl Engine {
                     "请重新提供来源与请求配置",
                 ));
             }
-            if t.view.needs_credentials
-                && t.input.as_ref().is_some_and(|i| {
-                    !i.remember
-                        && i.network.headers.is_empty()
-                        && i.manual_keys.is_empty()
-                        && i.force_key.is_none()
-                })
-                && t.view.state == "paused"
-            {
+            if !t.credentials_available && !t.view.processing_ready {
                 return Err(AppError::new(
                     "CREDENTIAL_REQUIRED",
                     "凭证未跨重启保存，请编辑任务补充配置",
@@ -387,6 +567,9 @@ impl Engine {
         for p in previews {
             p.cancel.cancel();
         }
+        for (_, (cancel, _)) in self.local_previews.lock().unwrap().drain() {
+            cancel.cancel();
+        }
     }
     pub async fn delete(&self, id: &str, cache: bool) -> Result<()> {
         self.stop(id, true).await?;
@@ -418,6 +601,7 @@ impl Engine {
         if persist {
             self.store
                 .save(&t.view, t.input.as_ref(), t.plan.as_ref())?;
+            self.log(&t.view);
         }
         if persist || t.last_event.elapsed() >= Duration::from_millis(250) {
             let _ = self.events.send(t.view.clone());
@@ -447,6 +631,7 @@ impl Engine {
                     "CREDENTIAL_REQUIRED",
                     "HTTP_AUTH",
                     "SOURCE_CHANGED",
+                    "MISSING_CONFIRMATION",
                 ]
                 .contains(&error.code.as_str())
                 {
@@ -469,13 +654,24 @@ impl Engine {
     }
     async fn run(self: &Arc<Self>, id: &str) -> Result<()> {
         let task = self.task(id)?;
-        let (input, cancel, old_plan, created) = {
+        let (
+            input,
+            cancel,
+            old_plan,
+            created,
+            processing_ready,
+            old_missing,
+            credentials_available,
+        ) = {
             let t = task.lock().unwrap();
             (
                 t.input.clone().unwrap(),
                 t.cancel.clone(),
                 t.plan.clone(),
                 t.view.created_at.clone(),
+                t.view.processing_ready,
+                t.view.missing.clone(),
+                t.credentials_available,
             )
         };
         let slot = tokio::select! {_=cancel.cancelled()=>return Err(AppError::cancelled()),s=self.slots.acquire()=>s.map_err(|_|AppError::cancelled())?};
@@ -491,7 +687,37 @@ impl Engine {
             input.local_root.as_deref(),
             self.global.clone(),
         )?;
-        let plan = plan::build(&net, &input, &cancel).await?;
+        tokio::fs::create_dir_all(&input.output_dir).await?;
+        let cache = crate::filesystem::task_cache(Path::new(&self.settings().cache_dir), id)?;
+        let offline = if processing_ready {
+            if let Some(old) = &old_plan {
+                self.cache_complete(
+                    id,
+                    old,
+                    &input,
+                    &cache,
+                    &old_missing,
+                    &cancel,
+                    !credentials_available,
+                )
+                .await?
+            } else {
+                false
+            }
+        } else {
+            false
+        };
+        if !offline && !credentials_available {
+            return Err(AppError::new(
+                "CREDENTIAL_REQUIRED",
+                "剩余资源需要未保存的凭证，请补充请求配置或密钥后继续",
+            ));
+        }
+        let plan = if offline {
+            old_plan.clone().unwrap()
+        } else {
+            plan::build(&net, &input, &cancel).await?
+        };
         if let Some(old) = old_plan {
             if plan_identity(&old)? != plan_identity(&plan)? {
                 return Err(AppError::new(
@@ -503,8 +729,6 @@ impl Engine {
         {
             task.lock().unwrap().plan = Some(plan.clone());
         }
-        let cache = PathBuf::from(&self.settings().cache_dir).join(id);
-        tokio::fs::create_dir_all(&cache).await?;
         let total = plan.tracks.iter().map(|t| t.playlist.segments.len()).sum();
         self.update(id, true, |v| {
             v.state = "downloading".into();
@@ -513,10 +737,23 @@ impl Engine {
             v.bytes = 0;
             v.progress = 0.0;
             v.resolution = plan.resolution.clone();
+            v.processing_ready = offline;
+            if offline {
+                v.missing = old_missing.clone();
+                v.done = total.saturating_sub(old_missing.len());
+            }
         })?;
         let mut keys = HashMap::<String, Zeroizing<[u8; 16]>>::new();
         for (ti, track) in plan.tracks.iter().enumerate() {
             for segment in &track.playlist.segments {
+                if offline
+                    || self
+                        .cached_bytes(id, ti, &track.kind, segment, &input, &cache)
+                        .await?
+                        .is_some()
+                {
+                    continue;
+                }
                 if let Some(k) = &segment.key {
                     let context = format!("{ti}:{}", k.id);
                     if !keys.contains_key(&context) {
@@ -554,7 +791,7 @@ impl Engine {
                     .map(move |s| (ti, t.kind.clone(), s))
             })
             .collect::<Vec<_>>();
-        let started = Instant::now();
+        let jobs = jobs.into_iter().filter(|_| !offline).collect::<Vec<_>>();
         let cache_ref = &cache;
         let net_ref = &net;
         let input_ref = &input;
@@ -566,21 +803,55 @@ impl Engine {
                     id, ti, &kind, &segment, cache_ref, net_ref, input_ref, keys_ref, cancel_ref,
                 )
                 .await;
-            (ti, segment.index, result)
+            let result = result.map_err(|mut e| {
+                e.resource_id = Some(format!("{ti}:{}", segment.index));
+                e.stage = Some(
+                    if e.code.starts_with("DECRYPT") || e.code.starts_with("KEY") {
+                        "decrypt"
+                    } else {
+                        "download"
+                    }
+                    .into(),
+                );
+                e
+            });
+            (ti, segment.index, kind, result)
         }))
         .buffer_unordered(input.network.concurrency);
-        while let Some((ti, index, result)) = work.next().await {
+        let mut samples = std::collections::VecDeque::new();
+        let mut ticker = tokio::time::interval(Duration::from_millis(250));
+        loop {
+            let item = tokio::select! {
+                _ = cancel.cancelled() => {
+                    while work.next().await.is_some() {}
+                    return Err(AppError::cancelled());
+                },
+                _ = ticker.tick() => {
+                    let now = Instant::now();
+                    let received = net.received.load(std::sync::atomic::Ordering::Relaxed);
+                    samples.push_back((now, received));
+                    while samples.len() > 1 && samples[0].0.elapsed() > Duration::from_secs(3) { samples.pop_front(); }
+                    let speed = samples.front().map(|(time, bytes)| ((received - bytes) as f64 / time.elapsed().as_secs_f64().max(0.25)) as u64).unwrap_or(0);
+                    self.update(id, false, |v| v.speed = speed)?;
+                    continue;
+                },
+                item = work.next() => item
+            };
+            let Some((ti, index, kind, result)) = item else {
+                break;
+            };
+            if offline && old_missing.contains(&format!("{ti}:{index}")) {
+                continue;
+            }
             match result {
                 Ok(bytes) => self.update(id, false, |v| {
                     v.done += 1;
                     v.bytes += bytes;
                     v.progress = v.done as f64 / v.total.max(1) as f64;
-                    v.speed = (net.received.load(std::sync::atomic::Ordering::Relaxed) as f64
-                        / started.elapsed().as_secs_f64().max(0.01))
-                        as u64;
                 })?,
                 Err(e)
                     if input.allow_gaps
+                        && kind != "subtitle"
                         && [
                             "HTTP_NOT_FOUND",
                             "NETWORK_TIMEOUT",
@@ -591,7 +862,11 @@ impl Engine {
                 {
                     self.update(id, false, |v| v.missing.push(format!("{ti}:{index}")))?
                 }
-                Err(e) => return Err(e),
+                Err(e) => {
+                    cancel.cancel();
+                    while work.next().await.is_some() {}
+                    return Err(e);
+                }
             }
         }
         drop(work);
@@ -603,8 +878,15 @@ impl Engine {
             v.stage = "合并、转封装与验证".into();
             v.progress = 0.0;
             v.speed = 0;
+            v.processing_ready = true;
         })?;
-        let output = media::process(
+        if !missing.is_empty() && !input.confirm_gaps {
+            return Err(AppError::new(
+                "MISSING_CONFIRMATION",
+                "请查看缺失分片范围，明确确认后生成不完整输出；也可关闭跳过选项后重试",
+            ));
+        }
+        let prepared = media::process(
             &input,
             &plan,
             &cache,
@@ -617,32 +899,110 @@ impl Engine {
             },
         )
         .await?;
-        self.update(id, true, |v| {
-            v.output = Some(output.path);
-            v.state = if missing.is_empty() {
+        {
+            let mut task = task.lock().unwrap();
+            let output = prepared.publish(&cancel)?;
+            task.view.output = Some(output.path);
+            task.view.state = if missing.is_empty() {
                 "completed"
             } else {
                 "completed_with_gaps"
             }
             .into();
-            v.stage = if missing.is_empty() {
+            task.view.stage = if missing.is_empty() {
                 "已完成"
             } else {
                 "已完成（有缺失）"
             }
             .into();
-            v.progress = 1.0;
-            v.bytes = output.bytes;
-        })?;
+            task.view.progress = 1.0;
+            task.view.bytes = output.bytes;
+        }
         if !input.keep_cache && missing.is_empty() {
             let root = std::fs::canonicalize(&self.settings().cache_dir)?;
-            safe_remove_tree(&root, &cache)?;
-            self.store.clear_segments(id)?;
+            if safe_remove_tree(&root, &cache).is_ok() {
+                let _ = self.store.clear_segments(id);
+            }
         }
         Ok(())
     }
-    async fn segment(
+    async fn cached_bytes(
         &self,
+        id: &str,
+        ti: usize,
+        kind: &str,
+        segment: &Segment,
+        input: &TaskInput,
+        cache: &Path,
+    ) -> Result<Option<u64>> {
+        let file = cache.join(format!(
+            "{ti}-{}.{}",
+            segment.index,
+            if kind == "subtitle" { "vtt" } else { "ts" }
+        ));
+        if let Some(record) = self.store.segment(id, ti, segment.index)? {
+            if record.identity == segment_identity(ti, segment, input)? && file.exists() {
+                let bytes = tokio::fs::read(file).await?;
+                if bytes.len() as u64 == record.bytes && hash(&bytes) == record.digest {
+                    return Ok(Some(record.bytes));
+                }
+            }
+        }
+        Ok(None)
+    }
+    async fn cache_complete(
+        &self,
+        id: &str,
+        plan: &Plan,
+        input: &TaskInput,
+        cache: &Path,
+        missing: &[String],
+        cancel: &CancellationToken,
+        trust_saved_config: bool,
+    ) -> Result<bool> {
+        for (ti, track) in plan.tracks.iter().enumerate() {
+            for segment in &track.playlist.segments {
+                if cancel.is_cancelled() {
+                    return Err(AppError::cancelled());
+                }
+                if missing.contains(&format!("{ti}:{}", segment.index))
+                    && input.allow_gaps
+                    && track.kind != "subtitle"
+                {
+                    continue;
+                }
+                if trust_saved_config {
+                    let Some(record) = self.store.segment(id, ti, segment.index)? else {
+                        return Ok(false);
+                    };
+                    let path = cache.join(format!(
+                        "{ti}-{}.{}",
+                        segment.index,
+                        if track.kind == "subtitle" {
+                            "vtt"
+                        } else {
+                            "ts"
+                        }
+                    ));
+                    let Ok(bytes) = tokio::fs::read(path).await else {
+                        return Ok(false);
+                    };
+                    if bytes.len() as u64 != record.bytes || hash(&bytes) != record.digest {
+                        return Ok(false);
+                    }
+                } else if self
+                    .cached_bytes(id, ti, &track.kind, segment, input, cache)
+                    .await?
+                    .is_none()
+                {
+                    return Ok(false);
+                }
+            }
+        }
+        Ok(true)
+    }
+    async fn segment(
+        self: &Arc<Self>,
         id: &str,
         ti: usize,
         kind: &str,
@@ -656,29 +1016,22 @@ impl Engine {
         if cancel.is_cancelled() {
             return Err(AppError::cancelled());
         }
-        let identity = hash(&serde_json::to_vec(&(
-            segment,
-            &input.manual_keys,
-            &input.manual_ivs,
-            &input.force_key,
-        ))?);
+        let identity = segment_identity(ti, segment, input)?;
         let file = cache.join(format!(
             "{ti}-{}.{}",
             segment.index,
             if kind == "subtitle" { "vtt" } else { "ts" }
         ));
-        if let Some(record) = self.store.segment(id, ti, segment.index)? {
-            if record.identity == identity && file.exists() {
-                let bytes = tokio::fs::read(&file).await?;
-                if bytes.len() as u64 == record.bytes && hash(&bytes) == record.digest {
-                    return Ok(record.bytes);
-                }
-            }
+        if let Some(bytes) = self
+            .cached_bytes(id, ti, kind, segment, input, cache)
+            .await?
+        {
+            return Ok(bytes);
         }
         let settings = self.settings();
-        if fs2::available_space(cache)? < settings.low_disk_mib * 1024 * 1024
+        if fs2::available_space(cache)? < settings.low_disk_mib.saturating_mul(1024 * 1024)
             || fs2::available_space(Path::new(&input.output_dir))?
-                < settings.low_disk_mib * 1024 * 1024
+                < settings.low_disk_mib.saturating_mul(1024 * 1024)
         {
             return Err(AppError::new(
                 "DISK_FULL",
@@ -709,7 +1062,7 @@ impl Engine {
                 key,
                 &crypto::iv(manual.or(k.iv.as_deref()), segment.sequence)?,
             )?;
-        } else if let Some(k) = &input.force_key {
+        } else if let Some(k) = forced_key(input, ti, segment.sequence) {
             bytes = crypto::decrypt(
                 &bytes,
                 &crypto::decode_key(k)?,
@@ -728,33 +1081,51 @@ impl Engine {
                 bytes = combined;
             }
         }
-        crypto::validate_media(&bytes, kind == "subtitle")?;
-        let digest = hash(&bytes);
         let length = bytes.len() as u64;
-        let tmp = file.with_extension("part");
-        use tokio::io::AsyncWriteExt;
-        let mut f = tokio::fs::File::create(&tmp).await?;
-        f.write_all(&bytes).await?;
-        f.sync_all().await?;
-        drop(f);
-        if cancel.is_cancelled() {
-            return Err(AppError::cancelled());
+        let engine = self.clone();
+        let task_id = id.to_owned();
+        let index = segment.index;
+        let subtitle = kind == "subtitle";
+        let cancel = cancel.clone();
+        // File flushes and SQLite commits must not serialize polling all network futures.
+        // The run loop drains these jobs on stop/error before reporting a terminal state.
+        tokio::task::spawn_blocking(move || -> Result<()> {
+            if cancel.is_cancelled() {
+                return Err(AppError::cancelled());
+            }
+            crypto::validate_media(&bytes, subtitle)?;
+            let digest = hash(&bytes);
+            crate::filesystem::atomic_write(&file, &bytes)?;
+            if cancel.is_cancelled() {
+                return Err(AppError::cancelled());
+            }
+            engine.store.commit_segment(
+                &task_id,
+                &SegmentRecord {
+                    track: ti,
+                    index,
+                    identity,
+                    bytes: length,
+                    digest,
+                    file: file.file_name().unwrap().to_string_lossy().into_owned(),
+                },
+            )
+        })
+        .await
+        .map_err(|_| AppError::new("STORE_FAILED", "分片提交工作异常退出"))??;
+        if self.settings().log_level == "DEBUG" {
+            use std::io::Write;
+            let view = self.task(id)?.lock().unwrap().view.clone();
+            self.log(&view);
+            let value = serde_json::json!({"time":chrono::Utc::now().to_rfc3339(),"level":"DEBUG","task_id":id,"attempt_id":view.attempt_id,"resource_id":format!("{ti}:{}",segment.index),"stage":"segment_committed","bytes":length});
+            if let Ok(mut log) = std::fs::OpenOptions::new()
+                .create(true)
+                .append(true)
+                .open(self.store.root.join("logs/application.jsonl"))
+            {
+                let _ = writeln!(log, "{value}");
+            }
         }
-        if file.exists() {
-            tokio::fs::remove_file(&file).await?;
-        }
-        tokio::fs::rename(tmp, &file).await?;
-        self.store.commit_segment(
-            id,
-            &SegmentRecord {
-                track: ti,
-                index: segment.index,
-                identity,
-                bytes: length,
-                digest,
-                file: file.file_name().unwrap().to_string_lossy().into_owned(),
-            },
-        )?;
         Ok(length)
     }
     fn log(&self, view: &TaskView) {
@@ -766,7 +1137,23 @@ impl Engine {
             let rotated = dir.join(format!("{}.jsonl", chrono::Utc::now().timestamp_millis()));
             let _ = std::fs::rename(&path, rotated);
         }
-        let value = serde_json::json!({"time":chrono::Utc::now().to_rfc3339(),"level":if view.error.is_some(){"ERROR"}else{"INFO"},"task_id":view.id,"attempt_id":view.attempt_id,"state":view.state,"code":view.error.as_ref().map(|e|&e.code)});
+        let level = if view.error.is_some() {
+            "ERROR"
+        } else if !view.missing.is_empty() {
+            "WARN"
+        } else {
+            "INFO"
+        };
+        let rank = |value: &str| match value {
+            "DEBUG" => 0,
+            "INFO" => 1,
+            "WARN" => 2,
+            _ => 3,
+        };
+        if rank(level) < rank(&self.settings().log_level) {
+            return;
+        }
+        let value = serde_json::json!({"time":chrono::Utc::now().to_rfc3339(),"level":level,"task_id":view.id,"attempt_id":view.attempt_id,"state":view.state,"done":view.done,"total":view.total,"bytes":view.bytes,"code":view.error.as_ref().map(|e|&e.code),"resource_id":view.error.as_ref().and_then(|e|e.resource_id.as_ref()),"diagnostic":view.error.as_ref().map(|e|&e.message)});
         if let Ok(mut f) = std::fs::OpenOptions::new()
             .create(true)
             .append(true)
@@ -827,6 +1214,31 @@ impl Engine {
             self.global.clone(),
         )?;
         let plan = plan::build(&net, &input, &cancel).await?;
+        let mut keys = HashMap::new();
+        for (ti, track) in plan.tracks.iter().enumerate() {
+            for segment in &track.playlist.segments {
+                if let Some(k) = &segment.key {
+                    let context = format!("{ti}:{}", k.id);
+                    if keys.contains_key(&context) {
+                        continue;
+                    }
+                    let key = if let Some(v) = input
+                        .manual_keys
+                        .get(&context)
+                        .or_else(|| input.manual_keys.get(&k.id.to_string()))
+                    {
+                        crypto::decode_key(v)?
+                    } else {
+                        net.get(&k.uri, None, 16, &cancel)
+                            .await?
+                            .bytes
+                            .try_into()
+                            .map_err(|_| AppError::new("KEY_INVALID", "密钥响应必须为 16 字节"))?
+                    };
+                    keys.insert(context, Zeroizing::new(key));
+                }
+            }
+        }
         let id = uuid::Uuid::new_v4().to_string();
         let mut resources = HashMap::new();
         let mut manifests = Vec::new();
@@ -851,6 +1263,7 @@ impl Engine {
                         key: seg.key.clone(),
                         sequence: seg.sequence,
                         kind: track.kind.clone(),
+                        map: seg.map.clone(),
                     },
                 );
                 text.push_str(&format!(
@@ -872,17 +1285,26 @@ impl Engine {
                     key: None,
                     sequence: 0,
                     kind: "manifest".into(),
+                    map: None,
                 },
             );
             if kind == "audio" {
                 master.push_str(&format!("#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=\"audio\",NAME=\"Audio\",DEFAULT=YES,AUTOSELECT=YES,URI=\"https://preview.invalid/{id}/{token}\"\n"));
             }
+            if kind == "subtitle" {
+                master.push_str(&format!("#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID=\"subs\",NAME=\"Subtitles\",DEFAULT=YES,AUTOSELECT=YES,URI=\"https://preview.invalid/{id}/{token}\"\n"));
+            }
         }
         let has_audio = manifests.iter().any(|(k, _)| k == "audio");
         master.push_str(&format!(
-            "#EXT-X-STREAM-INF:BANDWIDTH={}{}\nhttps://preview.invalid/{id}/track-0\n",
+            "#EXT-X-STREAM-INF:BANDWIDTH={}{}{}\nhttps://preview.invalid/{id}/track-0\n",
             plan.bandwidth.max(500000),
-            if has_audio { ",AUDIO=\"audio\"" } else { "" }
+            if has_audio { ",AUDIO=\"audio\"" } else { "" },
+            if manifests.iter().any(|(k, _)| k == "subtitle") {
+                ",SUBTITLES=\"subs\""
+            } else {
+                ""
+            }
         ));
         let mut previews = self.previews.lock().unwrap();
         previews.retain(|_, p| {
@@ -904,6 +1326,7 @@ impl Engine {
                 resources,
                 input,
                 created: Instant::now(),
+                keys: Arc::new(keys),
             },
         );
         Ok(PreviewInfo {
@@ -912,7 +1335,7 @@ impl Engine {
         })
     }
     pub async fn preview_resource(&self, id: &str, token: &str) -> Result<Vec<u8>> {
-        let (net, cancel, r, input) = {
+        let (net, cancel, r, input, keys) = {
             let previews = self.previews.lock().unwrap();
             let p = previews
                 .get(id)
@@ -922,7 +1345,13 @@ impl Engine {
                 .get(token)
                 .cloned()
                 .ok_or_else(|| AppError::new("PERMISSION_DENIED", "未知预览资源"))?;
-            (p.net.clone(), p.cancel.clone(), r, p.input.clone())
+            (
+                p.net.clone(),
+                p.cancel.clone(),
+                r,
+                p.input.clone(),
+                p.keys.clone(),
+            )
         };
         if r.kind == "manifest" {
             return Ok(r.uri.into_bytes());
@@ -934,35 +1363,41 @@ impl Engine {
         if let Some(k) = r.key {
             let ti = token.split('-').next().unwrap_or("0");
             let context = format!("{ti}:{}", k.id);
-            let key = if let Some(key) = input
-                .manual_keys
+            let key = keys
                 .get(&context)
-                .or_else(|| input.manual_keys.get(&k.id.to_string()))
-            {
-                crypto::decode_key(key)?
-            } else {
-                net.get(&k.uri, None, 16, &cancel)
-                    .await?
-                    .bytes
-                    .try_into()
-                    .map_err(|_| AppError::new("KEY_INVALID", "密钥长度必须为 16 字节"))?
-            };
+                .ok_or_else(|| AppError::new("KEY_INVALID", "密钥上下文不存在"))?;
             let iv = input
                 .manual_ivs
                 .get(&context)
                 .or_else(|| input.manual_ivs.get(&k.id.to_string()))
                 .map(String::as_str)
                 .or(k.iv.as_deref());
-            bytes = crypto::decrypt(&bytes, &key, &crypto::iv(iv, r.sequence)?)?;
-        } else if let Some(key) = input.force_key {
+            bytes = crypto::decrypt(&bytes, key, &crypto::iv(iv, r.sequence)?)?;
+        } else if let Some(key) = forced_key(
+            &input,
+            token
+                .split('-')
+                .next()
+                .and_then(|v| v.parse().ok())
+                .unwrap_or(0),
+            r.sequence,
+        ) {
             bytes = crypto::decrypt(
                 &bytes,
-                &crypto::decode_key(&key)?,
+                &crypto::decode_key(key)?,
                 &crypto::iv(
                     input.manual_ivs.get("manual").map(String::as_str),
                     r.sequence,
                 )?,
             )?;
+        }
+        if r.kind == "subtitle" {
+            if let Some(map) = r.map {
+                let mut header = net.get(&map, None, 1024 * 1024, &cancel).await?.bytes;
+                header.extend_from_slice(b"\n\n");
+                header.extend(bytes);
+                bytes = header;
+            }
         }
         crypto::validate_media(&bytes, r.kind == "subtitle")?;
         Ok(bytes)
@@ -971,14 +1406,45 @@ impl Engine {
         if let Some(p) = self.previews.lock().unwrap().remove(id) {
             p.cancel.cancel();
         }
+        if let Some((cancel, _)) = self.local_previews.lock().unwrap().remove(id) {
+            cancel.cancel();
+        }
     }
-}
-fn resize(s: &Semaphore, n: usize) {
-    let current = s.available_permits();
-    if n > current {
-        s.add_permits(n - current);
-    } else {
-        s.forget_permits(current - n);
+    pub async fn local_preview(&self, id: &str, path: &Path) -> Result<String> {
+        uuid::Uuid::parse_str(id).map_err(|_| AppError::new("INPUT_INVALID", "预览 ID 无效"))?;
+        let path = std::fs::canonicalize(path)?;
+        let ext = path
+            .extension()
+            .and_then(|s| s.to_str())
+            .unwrap_or("")
+            .to_ascii_lowercase();
+        if !["ts", "mkv", "mp4"].contains(&ext.as_str()) {
+            return Err(AppError::new("INPUT_INVALID", "请选择 TS、MP4 或 MKV 媒体"));
+        }
+        if ext == "mp4" {
+            return Ok(path.to_string_lossy().into_owned());
+        }
+        let dir = tempfile::Builder::new()
+            .prefix("local-preview-")
+            .tempdir_in(&self.store.root)?;
+        let output = dir.path().join("preview.mp4");
+        let cancel = CancellationToken::new();
+        {
+            let mut sessions = self.local_previews.lock().unwrap();
+            if sessions.len() >= 2 || sessions.contains_key(id) {
+                return Err(AppError::new("LIMIT_EXCEEDED", "请先关闭已有本地预览"));
+            }
+            sessions.insert(id.into(), (cancel.clone(), dir));
+        }
+        let settings = self.settings();
+        let result =
+            media::prepare_local(&settings.ffmpeg, &settings.ffprobe, &path, &output, &cancel)
+                .await;
+        if result.is_err() {
+            self.close_preview(id);
+        }
+        result?;
+        Ok(output.to_string_lossy().into_owned())
     }
 }
 fn needs_credentials(input: &TaskInput) -> bool {
@@ -986,6 +1452,7 @@ fn needs_credentials(input: &TaskInput) -> bool {
         && (!input.network.headers.is_empty()
             || !input.network.origin_headers.is_empty()
             || !input.manual_keys.is_empty()
+            || !input.manual_ivs.is_empty()
             || input.force_key.is_some()
             || url::Url::parse(&input.network.proxy).is_ok_and(|u| u.password().is_some()))
 }
@@ -997,6 +1464,42 @@ fn plan_identity(plan: &Plan) -> Result<String> {
             .map(|t| (&t.kind, &t.playlist.segments))
             .collect::<Vec<_>>(),
     )?))
+}
+fn segment_identity(ti: usize, segment: &Segment, input: &TaskInput) -> Result<String> {
+    let (key, iv) = if let Some(k) = &segment.key {
+        let context = format!("{ti}:{}", k.id);
+        (
+            input
+                .manual_keys
+                .get(&context)
+                .or_else(|| input.manual_keys.get(&k.id.to_string())),
+            input
+                .manual_ivs
+                .get(&context)
+                .or_else(|| input.manual_ivs.get(&k.id.to_string())),
+        )
+    } else {
+        (
+            forced_key(input, ti, segment.sequence),
+            if forced_key(input, ti, segment.sequence).is_some() {
+                input.manual_ivs.get("manual")
+            } else {
+                None
+            },
+        )
+    };
+    Ok(hash(&serde_json::to_vec(&(segment, key, iv))?))
+}
+fn forced_key(input: &TaskInput, ti: usize, sequence: u64) -> Option<&String> {
+    if ti == input.force_track
+        && input
+            .force_range
+            .is_some_and(|r| sequence >= r[0] && sequence <= r[1])
+    {
+        input.force_key.as_ref()
+    } else {
+        None
+    }
 }
 pub fn safe_remove_tree(root: &Path, path: &Path) -> Result<()> {
     let root = std::fs::canonicalize(root)?;
@@ -1010,24 +1513,33 @@ pub fn safe_remove_tree(root: &Path, path: &Path) -> Result<()> {
             "拒绝清理缓存根目录外的数据",
         ));
     }
-    fn inspect(root: &Path, path: &Path) -> Result<()> {
-        for e in std::fs::read_dir(path)? {
-            let e = e?;
-            let p = e.path();
-            let m = std::fs::symlink_metadata(&p)?;
-            if m.file_type().is_symlink() || !std::fs::canonicalize(&p)?.starts_with(root) {
-                return Err(AppError::new(
-                    "PERMISSION_DENIED",
-                    "缓存含目录联接或外部链接，停止自动清理",
-                ));
-            }
-            if m.is_dir() {
-                inspect(root, &p)?;
-            }
-        }
-        Ok(())
-    }
-    inspect(&root, path)?;
+    crate::filesystem::check_tree(&root, path)?;
     std::fs::remove_dir_all(path)?;
     Ok(())
+}
+
+#[cfg(test)]
+mod concurrency_tests {
+    use super::*;
+
+    #[test]
+    fn settings_keep_total_budget_while_preview_holds_permits() {
+        let dir = tempfile::tempdir().unwrap();
+        let engine = Engine::open(dir.path()).unwrap();
+        let held = engine.global.clone().try_acquire_many_owned(8).unwrap();
+        let old = engine.settings();
+        let mut new = old.clone();
+        new.theme = "dark".into();
+        engine.save_settings(new.clone()).unwrap();
+        assert_eq!(engine.global.available_permits(), old.max_requests - 8);
+        new.max_requests = 4;
+        assert_eq!(
+            engine.save_settings(new.clone()).unwrap_err().code,
+            "TASK_BUSY"
+        );
+        drop(held);
+        assert_eq!(engine.global.available_permits(), old.max_requests);
+        engine.save_settings(new).unwrap();
+        assert_eq!(engine.global.available_permits(), 4);
+    }
 }

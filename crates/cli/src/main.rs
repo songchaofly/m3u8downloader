@@ -45,6 +45,12 @@ struct Download {
     #[arg(long)]
     key: Option<String>,
     #[arg(long)]
+    key_contexts: Option<PathBuf>,
+    #[arg(long)]
+    force_key: Option<String>,
+    #[arg(long)]
+    force_range: Option<String>,
+    #[arg(long)]
     iv: Option<String>,
     #[arg(long)]
     cookie: Option<String>,
@@ -66,12 +72,12 @@ struct Download {
     subtitle: Option<usize>,
     #[arg(long)]
     video_only: bool,
-    #[arg(long, default_value = "copy")]
-    video_codec: String,
-    #[arg(long, default_value = "copy")]
-    audio_codec: String,
-    #[arg(long, default_value = "sidecar")]
-    subtitle_mode: String,
+    #[arg(long)]
+    video_codec: Option<String>,
+    #[arg(long)]
+    audio_codec: Option<String>,
+    #[arg(long)]
+    subtitle_mode: Option<String>,
     #[arg(long)]
     keep_cache: bool,
     #[arg(long)]
@@ -81,15 +87,17 @@ struct Download {
     #[arg(long)]
     fast_ts: bool,
     #[arg(long)]
+    overwrite: bool,
+    #[arg(long)]
     local_root: Option<String>,
     #[arg(long)]
     base_url: Option<String>,
     #[arg(long, default_value = "jsonl")]
     format: String,
-    #[arg(long, default_value = "ffmpeg")]
-    ffmpeg: String,
-    #[arg(long, default_value = "ffprobe")]
-    ffprobe: String,
+    #[arg(long)]
+    ffmpeg: Option<String>,
+    #[arg(long)]
+    ffprobe: Option<String>,
     #[arg(long)]
     low_disk_mib: Option<u64>,
 }
@@ -119,6 +127,7 @@ fn exit_code(error: &AppError) -> i32 {
     } else if error.code.starts_with("HTTP")
         || error.code.starts_with("NETWORK")
         || error.code.starts_with("PROXY")
+        || error.code.starts_with("TLS")
         || error.code == "CREDENTIAL_REQUIRED"
     {
         3
@@ -184,6 +193,16 @@ async fn run(cli: Cli) -> Result<i32> {
     }
 }
 async fn download(engine: Arc<Engine>, d: Download) -> Result<i32> {
+    let credentials_supplied = d.url.is_some()
+        || d.request_config.is_some()
+        || d.cookie.is_some()
+        || d.referer.is_some()
+        || !d.headers.is_empty()
+        || d.proxy.is_some()
+        || d.key.is_some()
+        || d.key_file.is_some()
+        || d.key_contexts.is_some()
+        || d.force_key.is_some();
     if d.format != "jsonl" {
         return Err(AppError::new(
             "INPUT_INVALID",
@@ -198,7 +217,14 @@ async fn download(engine: Arc<Engine>, d: Download) -> Result<i32> {
     let mut input = if let Some(id) = &d.resume {
         engine.input(id)?.unwrap_or_default()
     } else {
-        TaskInput::default()
+        let settings = engine.settings();
+        TaskInput {
+            ffmpeg: settings.ffmpeg,
+            ffprobe: settings.ffprobe,
+            network: settings.network,
+            output_dir: settings.output_dir,
+            ..TaskInput::default()
+        }
     };
     if let Some(url) = d.url {
         input.source = url;
@@ -266,26 +292,66 @@ async fn download(engine: Arc<Engine>, d: Download) -> Result<i32> {
     if let Some(key) = key {
         input.manual_keys.insert("1".into(), key);
     }
+    if let Some(path) = d.key_contexts {
+        input.manual_keys = serde_json::from_slice(&std::fs::read(path)?)?;
+    }
+    if let Some(key) = d.force_key {
+        input.force_key = Some(key);
+    }
+    if let Some(range) = d.force_range {
+        let (start, end) = range
+            .split_once(':')
+            .ok_or_else(|| AppError::new("INPUT_INVALID", "--force-range 使用开始序号:结束序号"))?;
+        input.force_range = Some([
+            start
+                .parse()
+                .map_err(|_| AppError::new("INPUT_INVALID", "开始序号无效"))?,
+            end.parse()
+                .map_err(|_| AppError::new("INPUT_INVALID", "结束序号无效"))?,
+        ]);
+    }
     if let Some(iv) = d.iv {
         input.manual_ivs.insert("1".into(), iv);
     }
     input.variant = d.variant.or(input.variant);
     input.audio = d.audio.or(input.audio);
     input.subtitle = d.subtitle.or(input.subtitle);
-    input.video_only = d.video_only;
-    input.video_codec = d.video_codec;
-    input.audio_codec = d.audio_codec;
-    input.subtitle_mode = d.subtitle_mode;
-    input.keep_cache = d.keep_cache;
-    input.remember = d.remember;
-    input.allow_gaps = d.allow_gaps;
-    input.fast_ts = d.fast_ts;
+    if d.video_only {
+        input.video_only = true;
+    }
+    if let Some(codec) = d.video_codec {
+        input.video_codec = codec;
+    }
+    if let Some(codec) = d.audio_codec {
+        input.audio_codec = codec;
+    }
+    if let Some(mode) = d.subtitle_mode {
+        input.subtitle_mode = mode;
+    }
+    if d.keep_cache {
+        input.keep_cache = true;
+    }
+    if d.remember {
+        input.remember = true;
+    }
+    if d.allow_gaps {
+        input.allow_gaps = true;
+        input.confirm_gaps = true;
+    }
+    if d.fast_ts {
+        input.fast_ts = true;
+    }
+    input.overwrite = d.overwrite;
     input.local_root = d.local_root.or(input.local_root);
     input.base_url = d.base_url.or(input.base_url);
-    input.ffmpeg = d.ffmpeg;
-    input.ffprobe = d.ffprobe;
+    if let Some(path) = d.ffmpeg {
+        input.ffmpeg = path;
+    }
+    if let Some(path) = d.ffprobe {
+        input.ffprobe = path;
+    }
     let id = if let Some(id) = d.resume {
-        engine.update_input(&id, input)?;
+        engine.update_options(&id, input, credentials_supplied)?;
         id
     } else {
         engine.add(input)?.id

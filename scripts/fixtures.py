@@ -22,6 +22,7 @@ def generate(root: Path, ffmpeg='ffmpeg'):
     (root/'sub.m3u8').write_text('#EXTM3U\n#EXT-X-TARGETDURATION:8\n#EXTINF:8,\nsub.vtt\n#EXT-X-ENDLIST\n',encoding='utf-8')
     (root/'master.m3u8').write_text('#EXTM3U\n#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio",NAME="English",LANGUAGE="en",DEFAULT=YES,URI="audio.m3u8"\n#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="subs",NAME="中文",LANGUAGE="zh",URI="sub.m3u8"\n#EXT-X-STREAM-INF:BANDWIDTH=500000,RESOLUTION=320x180,CODECS="avc1.42e01e,mp4a.40.2",AUDIO="audio",SUBTITLES="subs"\nvideo.m3u8\n',encoding='utf-8')
     (root/'metadata.json').write_text(json.dumps({'duration':8,'resolution':'320x180','key_hex':bytes(range(16)).hex(),'sequence':100},indent=2),encoding='utf-8')
+    subprocess.run(['node',str(Path(__file__).with_name('encrypt-fixtures.mjs')),str(root)],check=True)
     print(root.resolve())
 
 if __name__=='__main__':

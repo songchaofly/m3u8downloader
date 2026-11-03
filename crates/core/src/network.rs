@@ -35,6 +35,34 @@ pub struct Network {
     pub received: Arc<AtomicU64>,
 }
 fn request_error(e: reqwest::Error) -> AppError {
+    // Inspect the cause only for classification; never expose reqwest's URL-bearing error text.
+    let mut cause: Option<&(dyn std::error::Error + 'static)> = Some(&e);
+    let mut tls = false;
+    let mut proxy = false;
+    let mut auth = false;
+    while let Some(error) = cause {
+        let message = error.to_string().to_ascii_lowercase();
+        tls |= message.contains("certificate") || message.contains("tls handshake");
+        proxy |= message.contains("proxy") || message.contains("socks");
+        auth |= message.contains("407") || message.contains("authentication");
+        cause = error.source();
+    }
+    if tls {
+        return AppError::new(
+            "TLS_FAILED",
+            "TLS 证书或主机名校验失败，请检查证书与系统时间",
+        );
+    }
+    if proxy {
+        return AppError::new(
+            if auth { "PROXY_AUTH" } else { "PROXY_FAILED" },
+            if auth {
+                "代理认证失败，请检查代理凭证"
+            } else {
+                "代理连接失败，未回退直连"
+            },
+        );
+    }
     if e.is_timeout() {
         AppError::new("NETWORK_TIMEOUT", "网络请求超时").retryable()
     } else if e.is_connect() {
@@ -69,12 +97,13 @@ fn headers(config: &NetworkConfig, source_origin: &str, target: &Url) -> Result<
     );
     map.insert("accept-encoding", HeaderValue::from_static("identity"));
     let target_origin = origin(target);
-    let values = if target_origin == source_origin {
-        Some(&config.headers)
-    } else {
-        config.origin_headers.get(&target_origin)
-    };
-    if let Some(values) = values {
+    let mut effective = std::collections::BTreeMap::new();
+    for values in config
+        .origin_headers
+        .get(&target_origin)
+        .into_iter()
+        .chain((target_origin == source_origin).then_some(&config.headers))
+    {
         let mut seen = std::collections::HashSet::new();
         for (k, v) in values {
             let key = k.to_ascii_lowercase();
@@ -98,32 +127,62 @@ fn headers(config: &NetworkConfig, source_origin: &str, target: &Url) -> Result<
             if v.contains(['\r', '\n']) {
                 return Err(AppError::new("INPUT_INVALID", "请求头不可包含换行"));
             }
-            map.insert(
-                HeaderName::from_bytes(key.as_bytes())
-                    .map_err(|_| AppError::new("INPUT_INVALID", "无效请求头名称"))?,
-                HeaderValue::from_str(v)
-                    .map_err(|_| AppError::new("INPUT_INVALID", "无效请求头值"))?,
-            );
+            effective.insert(key, v);
         }
+    }
+    for (key, v) in effective {
+        if v.is_empty() {
+            continue;
+        }
+        map.insert(
+            HeaderName::from_bytes(key.as_bytes())
+                .map_err(|_| AppError::new("INPUT_INVALID", "无效请求头名称"))?,
+            HeaderValue::from_str(v).map_err(|_| AppError::new("INPUT_INVALID", "无效请求头值"))?,
+        );
     }
     Ok(map)
 }
 
 impl Network {
     pub fn new(
-        config: NetworkConfig,
+        mut config: NetworkConfig,
         source: &str,
         root: Option<&str>,
         global: Arc<Semaphore>,
     ) -> Result<Self> {
         if !(1..=32).contains(&config.concurrency)
             || config.retries > 10
+            || config.max_redirects > 10
             || !(1..=120).contains(&config.connect_timeout)
             || !(1..=3600).contains(&config.request_timeout)
             || !(5..=300).contains(&config.read_timeout)
             || (config.limit_kib != 0 && !(64..=1_048_576).contains(&config.limit_kib))
         {
             return Err(AppError::new("INPUT_INVALID", "网络参数超出允许范围"));
+        }
+        let presets = std::mem::take(&mut config.origin_headers);
+        for (scope, values) in presets {
+            let target =
+                Url::parse(&scope).map_err(|_| AppError::new("INPUT_INVALID", "凭证作用域无效"))?;
+            if !["http", "https"].contains(&target.scheme())
+                || target.path() != "/"
+                || target.query().is_some()
+                || target.fragment().is_some()
+                || !target.username().is_empty()
+                || target.password().is_some()
+            {
+                return Err(AppError::new(
+                    "INPUT_INVALID",
+                    "凭证作用域只能包含协议、主机和端口",
+                ));
+            }
+            if config
+                .origin_headers
+                .insert(origin(&target), values)
+                .is_some()
+            {
+                return Err(AppError::new("INPUT_INVALID", "凭证作用域重复"));
+            }
         }
         let u = crate::playlist::source_url(source)?;
         let local_root = if u.scheme() == "file" {
@@ -160,6 +219,14 @@ impl Network {
         for target in config.origin_headers.keys() {
             let target = Url::parse(target)
                 .map_err(|_| AppError::new("INPUT_INVALID", "凭证作用域必须是有效的源"))?;
+            if !["http", "https"].contains(&target.scheme())
+                || target.as_str().trim_end_matches('/') != origin(&target)
+            {
+                return Err(AppError::new(
+                    "INPUT_INVALID",
+                    "凭证作用域只能包含协议、主机和端口",
+                ));
+            }
             headers(&config, &origin(&u), &target)?;
         }
         Ok(Self {
@@ -226,7 +293,7 @@ impl Network {
         cancel: &CancellationToken,
     ) -> Result<Resource> {
         let mut visited = std::collections::HashSet::new();
-        for hop in 0..=5 {
+        for hop in 0..=self.config.max_redirects {
             if !visited.insert(u.to_string()) {
                 return Err(AppError::new("NETWORK_REDIRECT", "重定向循环"));
             }
@@ -244,8 +311,8 @@ impl Network {
             }
             let resp = req.send().await.map_err(request_error)?;
             if resp.status().is_redirection() {
-                if hop == 5 {
-                    return Err(AppError::new("NETWORK_REDIRECT", "重定向次数超过 5 次"));
+                if hop == self.config.max_redirects {
+                    return Err(AppError::new("NETWORK_REDIRECT", "重定向次数超过配置上限"));
                 }
                 let location = resp
                     .headers()
@@ -269,6 +336,7 @@ impl Network {
             if !status.is_success() {
                 let code = match status.as_u16() {
                     401 | 403 => "HTTP_AUTH",
+                    407 => "PROXY_AUTH",
                     404 => "HTTP_NOT_FOUND",
                     429 => "HTTP_RATE_LIMIT",
                     _ => "HTTP_ERROR",

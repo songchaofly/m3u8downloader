@@ -10,6 +10,10 @@ pub struct AppError {
     pub retryable: bool,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub retry_after_secs: Option<u64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub resource_id: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub stage: Option<String>,
 }
 
 impl AppError {
@@ -19,6 +23,8 @@ impl AppError {
             message: message.into(),
             retryable: false,
             retry_after_secs: None,
+            resource_id: None,
+            stage: None,
         }
     }
     pub fn retryable(mut self) -> Self {
@@ -31,7 +37,9 @@ impl AppError {
 }
 impl From<std::io::Error> for AppError {
     fn from(e: std::io::Error) -> Self {
-        let code = if e.kind() == std::io::ErrorKind::PermissionDenied {
+        let code = if e.kind() == std::io::ErrorKind::StorageFull {
+            "DISK_FULL"
+        } else if e.kind() == std::io::ErrorKind::PermissionDenied {
             "PERMISSION_DENIED"
         } else {
             "IO_FAILED"

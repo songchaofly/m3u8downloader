@@ -1,0 +1,60 @@
+{
+  "fixture": {
+    "url": "http://127.0.0.1:51832",
+    "segments": 1000,
+    "segment_bytes": 2097140
+  },
+  "startup_ms": [
+    1121.6076,
+    949.3674000000001,
+    1308.4815999999996,
+    1047.5248999999994,
+    1186.9681999999993
+  ],
+  "baseline_ms": [
+    10342.249500000002,
+    9842.7664,
+    9599.55750000001
+  ],
+  "application_ms": [
+    19447.532300000003,
+    19214.0446,
+    19465.6633
+  ],
+  "feedback_ms": "raw samples in performance.json",
+  "memory_reports": [
+    {
+      "system": "Windows-11-10.0.26200-SP0",
+      "physical_cores": 4,
+      "logical_cores": 8,
+      "memory_bytes": 16969424896,
+      "peak_gui_core_bytes": 564060160,
+      "peak_media_bytes": 0
+    },
+    {
+      "system": "Windows-11-10.0.26200-SP0",
+      "physical_cores": 4,
+      "logical_cores": 8,
+      "memory_bytes": 16969424896,
+      "peak_gui_core_bytes": 561651712,
+      "peak_media_bytes": 0
+    },
+    {
+      "system": "Windows-11-10.0.26200-SP0",
+      "physical_cores": 4,
+      "logical_cores": 8,
+      "memory_bytes": 16969424896,
+      "peak_gui_core_bytes": 571527168,
+      "peak_media_bytes": 0
+    }
+  ],
+  "throughput_ratio": 0.5061190411289354,
+  "feedback_p95_ms": 18.200000002980232,
+  "peak_gui_core_bytes": 571527168,
+  "passed": {
+    "startup": true,
+    "throughput": false,
+    "feedback": true,
+    "memory": false
+  }
+}

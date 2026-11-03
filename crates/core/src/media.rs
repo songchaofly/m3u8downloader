@@ -27,12 +27,126 @@ pub struct OutputResult {
     pub subtitle: Option<String>,
 }
 
+struct Reservation(PathBuf);
+impl Drop for Reservation {
+    fn drop(&mut self) {
+        let _ = std::fs::remove_file(&self.0);
+    }
+}
+
+pub struct PreparedOutput {
+    _staging: tempfile::TempDir,
+    _reservation: Reservation,
+    files: Vec<(PathBuf, PathBuf)>,
+    result: OutputResult,
+    overwrite: bool,
+    cache_root: PathBuf,
+    local_inputs: Vec<PathBuf>,
+}
+impl PreparedOutput {
+    /// Called under the task's state lock: cancellation and publication have one order.
+    pub fn publish(self, cancel: &CancellationToken) -> Result<OutputResult> {
+        if cancel.is_cancelled() {
+            return Err(AppError::cancelled());
+        }
+        for (_, target) in &self.files {
+            protect_output(target, &self.cache_root, &self.local_inputs)?;
+        }
+        let mut committed: Vec<(PathBuf, Option<PathBuf>)> = Vec::new();
+        for (source, target) in &self.files {
+            let attempt = (|| -> Result<Option<PathBuf>> {
+                let backup = if self.overwrite && target.exists() {
+                    let parent = std::fs::canonicalize(target.parent().unwrap())?;
+                    crate::filesystem::check_tree(&parent, target)?;
+                    if !target.is_file() {
+                        return Err(AppError::new("OUTPUT_CONFLICT", "覆盖目标不是普通文件"));
+                    }
+                    let backup = self
+                        ._staging
+                        .path()
+                        .join(format!("backup-{}", uuid::Uuid::new_v4()));
+                    if std::fs::hard_link(target, &backup).is_err() {
+                        std::fs::copy(target, &backup)?;
+                    }
+                    Some(backup)
+                } else {
+                    None
+                };
+                let temp = tempfile::TempPath::try_from_path(source)?;
+                let result = if self.overwrite {
+                    temp.persist(target)
+                } else {
+                    temp.persist_noclobber(target)
+                };
+                result.map_err(|e| {
+                    AppError::new(
+                        "OUTPUT_CONFLICT",
+                        format!("输出提交失败：{}", e.error.kind()),
+                    )
+                })?;
+                Ok(backup)
+            })();
+            match attempt {
+                Ok(backup) => committed.push((target.clone(), backup)),
+                Err(error) => {
+                    for (path, backup) in committed.into_iter().rev() {
+                        if let Some(backup) = backup {
+                            if let Ok(temp) = tempfile::TempPath::try_from_path(backup) {
+                                let _ = temp.persist(&path);
+                            }
+                        } else {
+                            let _ = std::fs::remove_file(path);
+                        }
+                    }
+                    return Err(error);
+                }
+            }
+        }
+        Ok(self.result)
+    }
+}
+
+fn protect_output(target: &Path, cache_root: &Path, local_inputs: &[PathBuf]) -> Result<()> {
+    let parent = std::fs::canonicalize(target.parent().unwrap())?;
+    let resolved = parent.join(target.file_name().unwrap());
+    if resolved.starts_with(cache_root) || local_inputs.iter().any(|input| input == &resolved) {
+        return Err(AppError::new(
+            "OUTPUT_CONFLICT",
+            "输出不能覆盖输入资源或写入任务缓存目录",
+        ));
+    }
+    if std::fs::symlink_metadata(target).is_ok() {
+        crate::filesystem::check_tree(&parent, target)?;
+        if local_inputs
+            .iter()
+            .any(|input| std::fs::canonicalize(target).is_ok_and(|p| &p == input))
+        {
+            return Err(AppError::new("OUTPUT_CONFLICT", "输出不能覆盖输入资源"));
+        }
+    }
+    Ok(())
+}
+
 fn command(exe: &str) -> Command {
     let mut c = Command::new(exe);
     c.kill_on_drop(true);
     #[cfg(windows)]
     c.creation_flags(0x08000000);
     c
+}
+fn ffpath(path: &Path) -> String {
+    let path = path.to_string_lossy();
+    // FFmpeg resolves HLS relative URIs incorrectly for Rust's Windows verbatim prefix.
+    #[cfg(windows)]
+    {
+        path.strip_prefix(r"\\?\")
+            .unwrap_or(&path)
+            .replace('\\', "/")
+    }
+    #[cfg(not(windows))]
+    {
+        path.into_owned()
+    }
 }
 pub async fn capabilities(ffmpeg: &str, ffprobe: &str) -> Result<Capabilities> {
     let out = tokio::time::timeout(
@@ -45,7 +159,12 @@ pub async fn capabilities(ffmpeg: &str, ffprobe: &str) -> Result<Capabilities> {
         return Err(AppError::new("FFMPEG_UNAVAILABLE", "无法运行 FFmpeg"));
     }
     let text = String::from_utf8_lossy(&out.stdout);
-    let probe = command(ffprobe).arg("-version").output().await?;
+    let probe = tokio::time::timeout(
+        std::time::Duration::from_secs(15),
+        command(ffprobe).arg("-version").output(),
+    )
+    .await
+    .map_err(|_| AppError::new("FFMPEG_UNAVAILABLE", "ffprobe 检查超时"))??;
     if !probe.status.success() {
         return Err(AppError::new("FFMPEG_UNAVAILABLE", "无法运行 ffprobe"));
     }
@@ -111,6 +230,12 @@ pub fn validate_input(input: &TaskInput) -> Result<()> {
     }
     if let Some(key) = &input.force_key {
         crate::crypto::decode_key(key)?;
+        if input.force_range.is_none_or(|r| r[0] > r[1]) {
+            return Err(AppError::new(
+                "INPUT_INVALID",
+                "手动 AES-128 必须指定有效的媒体序号区间",
+            ));
+        }
     }
     for iv in input.manual_ivs.values() {
         crate::crypto::iv(Some(iv), 0)?;
@@ -208,10 +333,38 @@ pub async fn process(
     missing: &[String],
     cancel: &CancellationToken,
     progress: impl Fn(f64) + Send + Sync,
-) -> Result<OutputResult> {
+) -> Result<PreparedOutput> {
     validate_input(input)?;
     let output_dir = PathBuf::from(&input.output_dir);
     tokio::fs::create_dir_all(&output_dir).await?;
+    let cache_root = std::fs::canonicalize(
+        cache
+            .parent()
+            .ok_or_else(|| AppError::new("OUTPUT_CONFLICT", "缓存根目录无效"))?,
+    )?;
+    let mut local_inputs = Vec::new();
+    let mut protect = |uri: &str| {
+        if let Ok(url) = crate::playlist::source_url(uri) {
+            if let Ok(path) = url.to_file_path() {
+                if let Ok(path) = std::fs::canonicalize(path) {
+                    local_inputs.push(path);
+                }
+            }
+        }
+    };
+    protect(&input.source);
+    for track in &plan.tracks {
+        protect(&track.playlist.source);
+        for segment in &track.playlist.segments {
+            protect(&segment.uri);
+            if let Some(key) = &segment.key {
+                protect(&key.uri);
+            }
+            if let Some(map) = &segment.map {
+                protect(map);
+            }
+        }
+    }
     let title = if input.title.trim().is_empty() {
         "video"
     } else {
@@ -251,8 +404,12 @@ pub async fn process(
             format!("{name} ({n})")
         };
         let output = output_dir.join(format!("{name}.{}", input.container));
-        let lock = output.with_extension(format!("{}.reserve", input.container));
-        if !output.exists() {
+        protect_output(&output, &cache_root, &local_inputs)?;
+        let lock = output_dir.join(format!("{name}.reserve"));
+        let conflict = ["mp4", "mkv", "ts", "vtt", "missing.json"]
+            .iter()
+            .any(|ext| std::fs::symlink_metadata(output.with_extension(ext)).is_ok());
+        if !conflict || input.overwrite {
             match std::fs::OpenOptions::new()
                 .write(true)
                 .create_new(true)
@@ -268,17 +425,11 @@ pub async fn process(
             return Err(AppError::new("OUTPUT_CONFLICT", "无法找到可用输出名称"));
         }
     };
-    struct Reservation(PathBuf);
-    impl Drop for Reservation {
-        fn drop(&mut self) {
-            let _ = std::fs::remove_file(&self.0);
-        }
-    }
-    let _reservation = Reservation(reservation);
-    let temporary = output_dir.join(format!(".{id}.part.{}", input.container));
-    if temporary.exists() {
-        tokio::fs::remove_file(&temporary).await?;
-    }
+    let reservation = Reservation(reservation);
+    let staging = tempfile::Builder::new()
+        .prefix(".m3u8-stage-")
+        .tempdir_in(&output_dir)?;
+    let temporary = staging.path().join(format!("media.{}", input.container));
     let mut inputs = Vec::new();
     let mut subtitle = None;
     for (ti, track) in plan.tracks.iter().enumerate() {
@@ -287,13 +438,11 @@ pub async fn process(
             let mut elapsed = 0.0;
             for segment in &track.playlist.segments {
                 let file = cache.join(format!("{ti}-{}.vtt", segment.index));
-                if file.exists() {
-                    parts.push((tokio::fs::read_to_string(file).await?, elapsed));
-                }
+                parts.push((tokio::fs::read_to_string(file).await?, elapsed));
                 elapsed += segment.duration;
             }
             let text = merge_vtt(&parts)?;
-            let path = cache.join("subtitles.vtt");
+            let path = staging.path().join("subtitles.vtt");
             tokio::fs::write(&path, text).await?;
             subtitle = Some(path);
             continue;
@@ -318,11 +467,12 @@ pub async fn process(
             ));
         }
         text.push_str("#EXT-X-ENDLIST\n");
-        tokio::fs::write(&path, text).await?;
+        crate::filesystem::atomic_write(&path, text.as_bytes())?;
         inputs.push((track.kind.clone(), path));
     }
     if input.fast_ts {
         if input.container != "ts"
+            || input.video_only
             || inputs.len() != 1
             || input.video_codec != "copy"
             || input.audio_codec != "copy"
@@ -334,10 +484,11 @@ pub async fn process(
         {
             return Err(AppError::new(
                 "OUTPUT_INCOMPATIBLE",
-                "快速 TS 拼接要求单一轨道组、无断点且不重新编码",
+                "快速 TS 拼接要求单一轨道组、无断点、不重新编码且不移除音轨",
             ));
         }
         let mut out = tokio::fs::File::create(&temporary).await?;
+        let mut structure = None;
         for segment in &plan.tracks[0].playlist.segments {
             if cancel.is_cancelled() {
                 return Err(AppError::cancelled());
@@ -345,8 +496,16 @@ pub async fn process(
             if missing.contains(&format!("0:{}", segment.index)) {
                 continue;
             }
-            let mut f =
-                tokio::fs::File::open(cache.join(format!("0-{}.ts", segment.index))).await?;
+            let path = cache.join(format!("0-{}.ts", segment.index));
+            let current = stream_structure(&input.ffprobe, &path, cancel).await?;
+            if structure.as_ref().is_some_and(|old| old != &current) {
+                return Err(AppError::new(
+                    "OUTPUT_INCOMPATIBLE",
+                    "快速 TS 模式检测到编码或流结构变化，请使用常规封装或转码",
+                ));
+            }
+            structure = Some(current);
+            let mut f = tokio::fs::File::open(path).await?;
             tokio::io::copy(&mut f, &mut out).await?;
         }
         out.flush().await?;
@@ -364,7 +523,7 @@ pub async fn process(
                 "-protocol_whitelist".into(),
                 "file".into(),
                 "-i".into(),
-                p.to_string_lossy().into_owned(),
+                ffpath(p),
             ]);
         }
         let embed = subtitle.is_some() && input.subtitle_mode == "embed" && input.container != "ts";
@@ -373,7 +532,7 @@ pub async fn process(
                 "-protocol_whitelist".into(),
                 "file".into(),
                 "-i".into(),
-                subtitle.as_ref().unwrap().to_string_lossy().into_owned(),
+                ffpath(subtitle.as_ref().unwrap()),
             ]);
         }
         args.extend(["-map".into(), "0:v:0?".into()]);
@@ -420,7 +579,7 @@ pub async fn process(
             "-progress".into(),
             "pipe:1".into(),
             "-nostats".into(),
-            temporary.to_string_lossy().into_owned(),
+            ffpath(&temporary),
         ]);
         run_ffmpeg(&input.ffmpeg, &args, cancel, plan.duration, &progress).await?;
     }
@@ -459,7 +618,7 @@ pub async fn process(
         "-protocol_whitelist".into(),
         "file".into(),
         "-i".into(),
-        temporary.to_string_lossy().into_owned(),
+        ffpath(&temporary),
         "-t".into(),
         "3".into(),
         "-f".into(),
@@ -470,28 +629,51 @@ pub async fn process(
     if cancel.is_cancelled() {
         return Err(AppError::cancelled());
     }
+    let mut files = Vec::new();
     if let Some(sub) = subtitle {
         if input.subtitle_mode == "sidecar" || input.container == "ts" {
             let dest = output.with_extension("vtt");
-            if dest.exists() {
-                return Err(AppError::new("OUTPUT_CONFLICT", "旁置字幕已存在，未覆盖"));
-            }
-            tokio::fs::copy(sub, &dest).await?;
             result.subtitle = Some(dest.to_string_lossy().into_owned());
+            files.push((sub, dest));
         }
     }
     if !missing.is_empty() {
-        let report = output.with_extension("missing.json");
+        let report = staging.path().join("missing.json");
         tokio::fs::write(
-            report,
+            &report,
             serde_json::to_vec_pretty(&serde_json::json!({"task_id":id,"missing":missing}))?,
         )
         .await?;
+        files.push((report, output.with_extension("missing.json")));
     }
-    tokio::fs::rename(&temporary, &output).await?;
+    files.push((temporary, output.clone()));
     result.path = output.to_string_lossy().into_owned();
     progress(1.0);
-    Ok(result)
+    Ok(PreparedOutput {
+        _staging: staging,
+        _reservation: reservation,
+        files,
+        result,
+        overwrite: input.overwrite,
+        cache_root,
+        local_inputs,
+    })
+}
+
+async fn stream_structure(
+    ffprobe: &str,
+    path: &Path,
+    cancel: &CancellationToken,
+) -> Result<serde_json::Value> {
+    let output = tokio::select! {
+        _ = cancel.cancelled() => return Err(AppError::cancelled()),
+        output = command(ffprobe).args(["-v", "error", "-protocol_whitelist", "file", "-show_entries", "stream=codec_name,codec_type,profile,width,height,pix_fmt,sample_rate,channels,channel_layout", "-of", "json"]).arg(path).output() => output?
+    };
+    if !output.status.success() {
+        return Err(AppError::new("OUTPUT_INVALID", "无法检查分片编码和流结构"));
+    }
+    let value: serde_json::Value = serde_json::from_slice(&output.stdout)?;
+    Ok(value["streams"].clone())
 }
 
 pub async fn probe(ffprobe: &str, path: &Path, cancel: &CancellationToken) -> Result<OutputResult> {
@@ -520,6 +702,46 @@ pub async fn probe(ffprobe: &str, path: &Path, cancel: &CancellationToken) -> Re
         subtitle: None,
     })
 }
+pub async fn prepare_local(
+    ffmpeg: &str,
+    ffprobe: &str,
+    source: &Path,
+    output: &Path,
+    cancel: &CancellationToken,
+) -> Result<()> {
+    let info = probe(ffprobe, source, cancel).await?;
+    let args = [
+        "-hide_banner",
+        "-nostdin",
+        "-y",
+        "-v",
+        "error",
+        "-protocol_whitelist",
+        "file",
+        "-i",
+    ]
+    .map(str::to_string)
+    .into_iter()
+    .chain([
+        ffpath(source),
+        "-map".into(),
+        "0:v:0?".into(),
+        "-map".into(),
+        "0:a:0?".into(),
+        "-c".into(),
+        "copy".into(),
+        "-movflags".into(),
+        "+faststart".into(),
+        "-progress".into(),
+        "pipe:1".into(),
+        ffpath(output),
+    ])
+    .collect::<Vec<_>>();
+    run_ffmpeg(ffmpeg, &args, cancel, info.duration, &|_| {}).await?;
+    probe(ffprobe, output, cancel).await?;
+    Ok(())
+}
+
 async fn run_ffmpeg(
     exe: &str,
     args: &[String],
@@ -556,14 +778,21 @@ async fn run_ffmpeg(
         tokio::select! {_=cancel.cancelled()=>{let _=child.kill().await;let _=child.wait().await;let _=errors.await;return Err(AppError::cancelled());},line=lines.next_line()=>{match line?{None=>break,Some(line)=>if let Some(v)=line.strip_prefix("out_time_us="){if let Ok(micros)=v.parse::<f64>(){progress((micros/1e6/duration.max(0.001)).clamp(0.0,0.99));}}}}}
     }
     let status = tokio::select! {_=cancel.cancelled()=>{let _=child.kill().await;child.wait().await?},s=child.wait()=>s?};
-    let _diagnostics = errors.await;
+    let diagnostics = errors.await.unwrap_or_default();
     if cancel.is_cancelled() {
         return Err(AppError::cancelled());
     }
     if !status.success() {
         return Err(AppError::new(
             "OUTPUT_INCOMPATIBLE",
-            "FFmpeg 处理失败，请检查编码与容器兼容性；缓存已保留",
+            format!(
+                "FFmpeg 处理失败；缓存已保留，可修改输出配置后重试。{}",
+                String::from_utf8_lossy(&diagnostics)
+                    .lines()
+                    .take(6)
+                    .collect::<Vec<_>>()
+                    .join(" ")
+            ),
         ));
     }
     Ok(())

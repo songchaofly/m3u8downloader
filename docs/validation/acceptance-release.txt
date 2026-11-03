@@ -1,0 +1,46 @@
+test_authenticated_http_proxy (__main__.Acceptance.test_authenticated_http_proxy) ... ok
+test_authenticated_socks5_remote_dns (__main__.Acceptance.test_authenticated_socks5_remote_dns) ... ok
+test_byte_ranges (__main__.Acceptance.test_byte_ranges) ... ok
+test_cache_junction_never_writes_outside_root (__main__.Acceptance.test_cache_junction_never_writes_outside_root) ... ok
+test_changed_source_does_not_mix (__main__.Acceptance.test_changed_source_does_not_mix) ... ok
+test_corrupted_cache_is_not_reused (__main__.Acceptance.test_corrupted_cache_is_not_reused) ... ok
+test_crash_recovery (__main__.Acceptance.test_crash_recovery) ... ok
+test_cross_origin_redirect_strips_cookie (__main__.Acceptance.test_cross_origin_redirect_strips_cookie) ... ok
+test_encrypted_nonzero_sequence (__main__.Acceptance.test_encrypted_nonzero_sequence) ... ok
+test_explicit_iv (__main__.Acceptance.test_explicit_iv) ... ok
+test_explicit_overwrite_commits_only_valid_output (__main__.Acceptance.test_explicit_overwrite_commits_only_valid_output) ... ok
+test_fast_ts_checks_every_segment (__main__.Acceptance.test_fast_ts_checks_every_segment) ... ok
+test_fast_ts_rejects_video_only (__main__.Acceptance.test_fast_ts_rejects_video_only) ... ok
+test_gap_report_never_overwrites (__main__.Acceptance.test_gap_report_never_overwrites) ... ok
+test_h264_aac_transcode (__main__.Acceptance.test_h264_aac_transcode) ... ok
+test_header_injection_rejected (__main__.Acceptance.test_header_injection_rejected) ... ok
+test_key_rotation_same_uri_and_plain_reset (__main__.Acceptance.test_key_rotation_same_uri_and_plain_reset) ... ok
+test_low_disk_threshold_preserves_state (__main__.Acceptance.test_low_disk_threshold_preserves_state) ... ok
+test_manual_key_context_invalidates_only_its_segments (__main__.Acceptance.test_manual_key_context_invalidates_only_its_segments) ... ok
+test_mismatched_external_audio_is_rejected (__main__.Acceptance.test_mismatched_external_audio_is_rejected) ... ok
+test_mkv_h265_transcode (__main__.Acceptance.test_mkv_h265_transcode) ... ok
+test_new_nested_output_directory (__main__.Acceptance.test_new_nested_output_directory) ... ok
+test_offline_reprocess_without_forgotten_manual_key (__main__.Acceptance.test_offline_reprocess_without_forgotten_manual_key) ... ok
+test_origin_preset_and_explicit_clear (__main__.Acceptance.test_origin_preset_and_explicit_clear) ... ok
+test_overwrite_cannot_replace_local_source_or_task_cache (__main__.Acceptance.test_overwrite_cannot_replace_local_source_or_task_cache) ... ok
+test_plain_http (__main__.Acceptance.test_plain_http) ... ok
+test_postprocessing_retry_works_offline (__main__.Acceptance.test_postprocessing_retry_works_offline) ... ok
+test_preserves_existing_media_and_sidecars (__main__.Acceptance.test_preserves_existing_media_and_sidecars) ... ok
+test_proxy_auth_failure_does_not_fall_back (__main__.Acceptance.test_proxy_auth_failure_does_not_fall_back) ... ok
+test_retry_after_is_respected (__main__.Acceptance.test_retry_after_is_respected) ... ok
+test_retry_failed_segment_only (__main__.Acceptance.test_retry_failed_segment_only) ... ok
+test_selected_subtitle_failure_is_fatal (__main__.Acceptance.test_selected_subtitle_failure_is_fatal) ... ok
+test_sensitive_headers_and_logs (__main__.Acceptance.test_sensitive_headers_and_logs) ... ok
+test_separate_audio_and_embedded_subtitles (__main__.Acceptance.test_separate_audio_and_embedded_subtitles) ... ok
+test_subtitles_in_mkv_and_ts_sidecar (__main__.Acceptance.test_subtitles_in_mkv_and_ts_sidecar) ... ok
+test_task_rate_limit_over_thirty_seconds (__main__.Acceptance.test_task_rate_limit_over_thirty_seconds) ... ok
+test_unmarked_aes_explicit_manual_range (__main__.Acceptance.test_unmarked_aes_explicit_manual_range) ... ok
+test_untrusted_tls_is_rejected (__main__.Acceptance.test_untrusted_tls_is_rejected) ... ok
+test_video_only_removes_audio (__main__.Acceptance.test_video_only_removes_audio) ... ok
+test_wrong_key_does_not_publish (__main__.Acceptance.test_wrong_key_does_not_publish) ... ok
+
+----------------------------------------------------------------------
+Ran 40 tests in 59.958s
+
+OK
+C:\Users\csong\AppData\Local\Temp\m3u8-acceptance-8ly71fn2\fixtures

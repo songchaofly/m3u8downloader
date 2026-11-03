@@ -30,7 +30,11 @@ async fn inspect_source(state: tauri::State<'_, AppState>, input: TaskInput) -> 
     state.engine.inspect(&input).await
 }
 #[tauri::command]
-fn add_task(state: tauri::State<AppState>, input: TaskInput, start: bool) -> Result<TaskView> {
+async fn add_task(
+    state: tauri::State<'_, AppState>,
+    input: TaskInput,
+    start: bool,
+) -> Result<TaskView> {
     let t = state.engine.add(input)?;
     if start {
         state.engine.start(&t.id)?;
@@ -43,11 +47,29 @@ fn task_input(state: tauri::State<AppState>, id: String) -> Result<Option<TaskIn
 }
 #[tauri::command]
 fn update_task(state: tauri::State<AppState>, id: String, input: TaskInput) -> Result<()> {
-    state.engine.update_input(&id, input)
+    let supplied = state.engine.input(&id)?.is_none_or(|old| {
+        old.source != input.source
+            || old.network.headers != input.network.headers
+            || old.network.origin_headers != input.network.origin_headers
+            || old.network.proxy != input.network.proxy
+            || old.manual_keys != input.manual_keys
+            || old.manual_ivs != input.manual_ivs
+            || old.force_key != input.force_key
+    });
+    state.engine.update_options(&id, input, supplied)
 }
 #[tauri::command]
 async fn task_action(state: tauri::State<'_, AppState>, id: String, action: String) -> Result<()> {
     match action.as_str() {
+        "confirm_gaps" => {
+            let mut input = state
+                .engine
+                .input(&id)?
+                .ok_or_else(|| AppError::new("INPUT_INVALID", "任务配置不存在"))?;
+            input.confirm_gaps = true;
+            state.engine.update_options(&id, input, false)?;
+            state.engine.start(&id)
+        }
         "start" => state.engine.start(&id),
         "pause" => state.engine.stop(&id, false).await,
         "cancel" => state.engine.stop(&id, true).await,
@@ -58,8 +80,32 @@ async fn task_action(state: tauri::State<'_, AppState>, id: String, action: Stri
     }
 }
 #[tauri::command]
-async fn diagnostics(state: tauri::State<'_, AppState>) -> Diagnostics {
-    state.engine.diagnostics().await
+fn duplicate_sources(state: tauri::State<AppState>, sources: Vec<String>) -> Vec<String> {
+    state.engine.duplicate_sources(&sources)
+}
+#[tauri::command]
+async fn test_connection(
+    state: tauri::State<'_, AppState>,
+    input: TaskInput,
+) -> Result<serde_json::Value> {
+    state.engine.test_connection(&input).await
+}
+#[tauri::command]
+fn task_details(
+    state: tauri::State<AppState>,
+    id: String,
+    offset: usize,
+    limit: usize,
+) -> Result<serde_json::Value> {
+    state.engine.task_details(&id, offset, limit)
+}
+#[tauri::command]
+fn prune_history(state: tauri::State<AppState>, days: u64) -> Result<usize> {
+    state.engine.prune_history(days)
+}
+#[tauri::command]
+async fn diagnostics(state: tauri::State<'_, AppState>) -> Result<Diagnostics> {
+    Ok(state.engine.diagnostics().await)
 }
 #[tauri::command]
 fn read_logs(state: tauri::State<AppState>) -> Result<String> {
@@ -74,7 +120,12 @@ fn export_logs(state: tauri::State<AppState>, path: String) -> Result<()> {
             "导出目标已存在，请选择新文件名",
         ));
     }
-    std::fs::write(path, state.engine.logs()?)?;
+    use std::io::Write;
+    std::fs::OpenOptions::new()
+        .create_new(true)
+        .write(true)
+        .open(path)?
+        .write_all(state.engine.logs()?.as_bytes())?;
     Ok(())
 }
 #[tauri::command]
@@ -94,6 +145,19 @@ async fn preview_resource(
 #[tauri::command]
 fn close_preview(state: tauri::State<AppState>, id: String) {
     state.engine.close_preview(&id)
+}
+#[tauri::command]
+async fn prepare_local_media(
+    app: tauri::AppHandle,
+    state: tauri::State<'_, AppState>,
+    id: String,
+    path: String,
+) -> Result<String> {
+    let path = state
+        .engine
+        .local_preview(&id, std::path::Path::new(&path))
+        .await?;
+    allow_media(app, path)
 }
 #[tauri::command]
 fn allow_media(app: tauri::AppHandle, path: String) -> Result<String> {
@@ -150,12 +214,17 @@ fn main() {
             task_input,
             update_task,
             task_action,
+            duplicate_sources,
+            test_connection,
+            task_details,
+            prune_history,
             diagnostics,
             read_logs,
             export_logs,
             open_preview,
             preview_resource,
             close_preview,
+            prepare_local_media,
             allow_media
         ])
         .build(tauri::generate_context!())

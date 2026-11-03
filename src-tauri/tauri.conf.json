@@ -10,11 +10,45 @@
     "frontendDist": "../dist"
   },
   "app": {
-    "windows": [{ "title": "M3U8 Studio", "width": 1320, "height": 860, "minWidth": 960, "minHeight": 640 }],
+    "windows": [
+      {
+        "title": "M3U8 Studio",
+        "width": 1200,
+        "height": 760,
+        "minWidth": 960,
+        "minHeight": 640
+      }
+    ],
     "security": {
       "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' asset: http://asset.localhost data:; connect-src ipc: http://ipc.localhost; media-src 'self' blob: asset: http://asset.localhost; worker-src 'self' blob:",
-      "assetProtocol": { "enable": true, "scope": [] }
+      "assetProtocol": {
+        "enable": true,
+        "scope": []
+      }
     }
   },
-  "bundle": { "active": true, "targets": ["nsis"], "shortDescription": "Local HLS download and media workspace", "category": "Video", "icon": ["icons/icon.ico", "icons/icon.png"] }
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "shortDescription": "Local HLS download and media workspace",
+    "category": "Video",
+    "icon": ["icons/icon.ico", "icons/icon.png"],
+    "resources": {
+      "runtime/ffmpeg.exe": "runtime/ffmpeg.exe",
+      "runtime/ffprobe.exe": "runtime/ffprobe.exe",
+      "runtime/FFMPEG-BUILD.json": "runtime/FFMPEG-BUILD.json",
+      "../licenses/": "licenses/",
+      "../LICENSE": "LICENSE",
+      "../THIRD_PARTY_NOTICES.md": "THIRD_PARTY_NOTICES.md"
+    },
+    "windows": {
+      "webviewInstallMode": {
+        "type": "offlineInstaller"
+      },
+      "nsis": {
+        "displayLanguageSelector": true,
+        "languages": ["SimpChinese", "English"]
+      }
+    }
+  }
 }
