@@ -34,7 +34,7 @@ build={'version':'0.1.0','platform':'windows-x64','source_commit':revision,'work
 (destination/'BUILD-MANIFEST.json').write_text(json.dumps(build,indent=2),encoding='utf-8')
 checksums={str(p.relative_to(destination)).replace('\\','/'):hashlib.sha256(p.read_bytes()).hexdigest() for p in destination.rglob('*') if p.is_file()}
 (destination/'SHA256.json').write_text(json.dumps(checksums,indent=2),encoding='utf-8')
-archive=destination.with_suffix('.zip')
+archive=destination.with_name(destination.name+'.zip')
 with zipfile.ZipFile(archive,'x',zipfile.ZIP_DEFLATED,compresslevel=6) as output:
     for file in destination.rglob('*'):
         if file.is_file():output.write(file,file.relative_to(destination.parent))
